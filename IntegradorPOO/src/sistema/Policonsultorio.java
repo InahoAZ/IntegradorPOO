@@ -5,6 +5,10 @@
  */
 package sistema;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 /**
  *
  * @author miuz
@@ -16,6 +20,10 @@ public class Policonsultorio {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("IntegradorPOOPU");
+        EntityManager em = emf.createEntityManager();
+        
         
     }
     
