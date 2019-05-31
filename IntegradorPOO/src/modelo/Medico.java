@@ -34,6 +34,48 @@ public class Medico extends Persona{
 
     public Medico() {
     }
+
+    public Medico(long matricula, int tiempoTurno, int dni, String nombre, String apellido, int telefono) {
+        super(dni, nombre, apellido, telefono);
+        this.matricula = matricula;
+        this.tiempoTurno = tiempoTurno;
+    }
+
+    public int getTiempoTurno() {
+        return tiempoTurno;
+    }
+
+    public void setTiempoTurno(int tiempoTurno) {
+        this.tiempoTurno = tiempoTurno;
+    }
+
+    public List<Especialidad> getEspecialidades() {
+        return especialidades;
+    }
+
+    public List<Cita> getCitas() {
+        return citas;
+    }
+
+    public long getMatricula() {
+        return matricula;
+    }
+
+    public static int getHorasLaboral() {
+        return horasLaboral;
+    }
+
+    public static void setHorasLaboral(int horasLaboral) {
+        Medico.horasLaboral = horasLaboral;
+    }
+
+    public void setEspecialidades(Especialidad especialidad) {
+        this.especialidades.add(especialidad);
+    }
+
+    public void setCitas(Cita cita) {
+        this.citas.add(cita);
+    }
     
     
     
