@@ -21,7 +21,7 @@ public class Policonsultorio {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("IntegradorPOOPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PoliconsultorioPU");
         EntityManager em = emf.createEntityManager();
         
         

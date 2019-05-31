@@ -7,6 +7,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -19,14 +20,10 @@ import javax.persistence.Temporal;
  * @author miuz
  */
 @Entity
-@Table (name="pacientes")
-class Paciente{
+@DiscriminatorValue("persona")
+public class Paciente extends Persona{
 
-    @Id
-    private int dni;
-    private String nombre;
-    private String apellido;
-    private int telefono;
+  
     
     private String direccion;
     
@@ -35,8 +32,10 @@ class Paciente{
     
     private HistoriaClinica historiaC;
     
-    @ManyToOne
-    private Consultorio consul;
+    
+    private Cita miCita;
+    
+   
 
     public Paciente() {
     }

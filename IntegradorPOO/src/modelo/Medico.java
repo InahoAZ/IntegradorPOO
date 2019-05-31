@@ -7,6 +7,7 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,13 +21,9 @@ import javax.persistence.Table;
  * @author miuz
  */
 @Entity
-@Table (name="medicos")
-class Medico{
-    @Id
-    private int dni;
-    private String nombre;
-    private String apellido;
-    private int telefono;
+@DiscriminatorValue("medico")
+public class Medico extends Persona{
+    
     
     private long matricula;
     
@@ -36,8 +33,10 @@ class Medico{
     @ManyToMany (mappedBy = "medicos")    
     private List<Especialidad> especialidades= new ArrayList<>();
     
-    @ManyToOne
-    private Consultorio consul;
+    @OneToMany (mappedBy = "medic")
+    private List<Cita> citas = new ArrayList<>();
+    
+    
 
     public Medico() {
     }

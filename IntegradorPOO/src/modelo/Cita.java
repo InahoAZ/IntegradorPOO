@@ -29,8 +29,10 @@ public class Cita {
     
     private boolean asistido;
     
+    private Paciente elpaciente;
+    
     @ManyToOne
-    private Consultorio consul;
+    private Medico medic;
 
     public Cita() {
     }
