@@ -8,6 +8,7 @@ package modelo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,5 +26,6 @@ public class HistoriaClinica {
     }
     private String descripcion;
     
+    @OneToOne(mappedBy = "historiaC")
     private Paciente paciente;
 }
