@@ -20,12 +20,37 @@ import javax.persistence.Temporal;
 @Table (name = "registros")
 public class Registro {
         
-         @Id
-         @GeneratedValue
+        @Id
+        @GeneratedValue
         private int cod;
-         @Temporal(javax.persistence.TemporalType.DATE)
+        @Temporal(javax.persistence.TemporalType.DATE)
         private Date fecha;
         private String disgnostico;
+        
+        //@ arreglar primero en medico
+        //private Medico elmedico;
+
+    public Registro() {
+    }
+
+    public Registro(String disgnostico) {
+        this.fecha = new Date();
+        this.disgnostico = disgnostico;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public String getDisgnostico() {
+        return disgnostico;
+    }
+        
+        
     
     
     
