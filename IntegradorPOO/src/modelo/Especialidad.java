@@ -33,10 +33,10 @@ public class Especialidad {
     public Especialidad() {
     }
 
-    public Especialidad(String nombre, String descripcion, int codEspecialidad) {
+    public Especialidad(String nombre, String descripcion) {
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.codEspecialidad = codEspecialidad;
+        
     }
     
     
