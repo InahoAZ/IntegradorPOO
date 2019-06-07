@@ -35,15 +35,60 @@ public class Cita {
     
     @ManyToOne
     private Medico medic;
-
+    
+    
+    
     public Cita() {
     }
 
-    public Cita(int codCita, Date fecha, boolean asistido) {
-        this.codCita = codCita;
-        this.fecha = fecha;
+    public Cita(Date fecha, boolean asistido, Paciente elpaciente, Medico medic) {
+        this.fecha = new Date();
+        this.asistido = asistido;
+        this.elpaciente = elpaciente;
+        this.medic = medic;
+    }
+
+    public int getCodCita() {
+        return codCita;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public boolean isAsistido() {
+        return asistido;
+    }
+
+    public Paciente getElpaciente() {
+        return elpaciente;
+    }
+
+    public Medico getMedic() {
+        return medic;
+    }
+
+    public void setAsistido(boolean asistido) {
         this.asistido = asistido;
     }
+
+    public void setElpaciente(Paciente elpaciente) {
+        this.elpaciente = elpaciente;
+    }
+
+    public void setMedic(Medico medic) {
+        this.medic = medic;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
