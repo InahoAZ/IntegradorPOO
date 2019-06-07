@@ -30,8 +30,8 @@ public class Medico extends Persona{
     @OneToMany (mappedBy = "medic")
     private List<Cita> citas = new ArrayList<>();
     
-    //@ como es el mappeado?? quien mapea???
-   // private List<Registro> registros = new ArrayList<>();
+   @OneToMany(mappedBy = "elmedico")
+   private List<Registro> registros = new ArrayList<>();
     
     
 
