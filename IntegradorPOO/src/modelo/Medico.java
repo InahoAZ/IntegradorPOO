@@ -6,6 +6,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -81,9 +82,22 @@ public class Medico extends Persona{
     }
     
     
+    //aqui el metodo busca las citas que pertenesca a "dni" y sean de un determinado "fecha"
+    /*public Cita buscarCita(int dni, Date fecha){
+            Cita c;
+            
+           return c;
+        
+    }*/
     
+    //ERROR -- agregar una que por paciente nomas devuelva la Hc.
+    //devuelve la historia clinica de un paciente obtenido por la cita
+    /*public HistoriaClinica obtenerHistClinica(Cita c){
+            HistoriaClinica h;
+            
+           return h;
     
-    
+    }*/
             
     
 }
