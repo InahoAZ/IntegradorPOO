@@ -30,7 +30,6 @@ public class Cita {
     
     private boolean asistido;
     
-    @OneToOne(mappedBy = "miCita")
     private Paciente elpaciente;
     
     @ManyToOne

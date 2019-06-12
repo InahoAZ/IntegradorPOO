@@ -22,9 +22,9 @@ public class Paciente extends Persona{
     private String direccion;    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fnac;    
-    @OneToOne
-    private HistoriaClinica historiaC;    
-    @OneToOne(mappedBy = "elpaciente")
+    
+    private HistoriaClinica historiaC;
+    
     private Cita miCita;   
 
     public Paciente() {
