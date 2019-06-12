@@ -1,22 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-/**
- *
- * @author miuz
- */
 @Entity
 @DiscriminatorValue("medico")
 public class Medico extends Persona{
@@ -26,21 +17,27 @@ public class Medico extends Persona{
     private static int horasLaboral;    
     
     @ManyToMany (mappedBy = "medicos")    
-    private List<Especialidad> especialidades= new ArrayList<>();
+    private List<Especialidad> especialidades;
     
     @OneToMany (mappedBy = "medic")
-    private List<Cita> citas = new ArrayList<>();
+    private List<Cita> citas;
     
    @OneToMany(mappedBy = "elmedico")
-   private List<Registro> registros = new ArrayList<>();
+   private List<Registro> registros;
     
     
 
     public Medico() {
+        this.registros = new ArrayList<>();
+        this.citas = new ArrayList<>();
+        this.especialidades = new ArrayList<>();
     }
 
     public Medico(long matricula, int tiempoTurno, int dni, String nombre, String apellido, int telefono) {
         super(dni, nombre, apellido, telefono);
+        this.registros = new ArrayList<>();
+        this.citas = new ArrayList<>();
+        this.especialidades = new ArrayList<>();
         this.matricula = matricula;
         this.tiempoTurno = tiempoTurno;
     }

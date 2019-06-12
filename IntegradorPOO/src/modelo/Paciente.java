@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import java.util.Date;
@@ -11,10 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author miuz
- */
+
 @Entity
 @DiscriminatorValue("persona")
 public class Paciente extends Persona{ 
@@ -23,8 +16,10 @@ public class Paciente extends Persona{
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fnac;    
     
+    @OneToOne
     private HistoriaClinica historiaC;
     
+    @OneToOne
     private Cita miCita;   
 
     public Paciente() {

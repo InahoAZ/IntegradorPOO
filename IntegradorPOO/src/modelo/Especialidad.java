@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import java.util.ArrayList;
@@ -13,10 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author miuz
- */
 @Entity
 @Table (name="especialidades")
 public class Especialidad {
@@ -28,12 +20,14 @@ public class Especialidad {
     private String descripcion;
     
     @ManyToMany 
-    private List<Medico> medicos = new ArrayList<>();
+    private List<Medico> medicos;
 
     public Especialidad() {
+        this.medicos = new ArrayList<>();
     }
 
     public Especialidad(String nombre, String descripcion) {
+        this.medicos = new ArrayList<>();
         this.nombre = nombre;
         this.descripcion = descripcion;
         

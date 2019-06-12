@@ -1,23 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package modelo;
 
 import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-/**
- *
- * @author miuz
- */
+
 @Entity
 @Table (name="historias_clinicas")
 public class HistoriaClinica {
@@ -29,14 +21,16 @@ public class HistoriaClinica {
     
     private String descripcion;
     
+    @OneToOne
     private Paciente paciente;
     
     @OneToMany(mappedBy = "hc")
-    private ArrayList<Registro> registro = new ArrayList<>();
+    private ArrayList<Registro> registro;
     
     
     //Constructores
     public HistoriaClinica() {
+        this.registro = new ArrayList<>();
     }
     
     
