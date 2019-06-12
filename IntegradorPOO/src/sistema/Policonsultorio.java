@@ -12,7 +12,7 @@ public class Policonsultorio {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PoliconsultorioPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PoliconsultorioU");
     
         Persistencia p = new Persistencia(emf);
         Controlador c1 = new Controlador(p);

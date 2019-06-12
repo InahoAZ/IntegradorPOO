@@ -1,6 +1,9 @@
 
 package controlador;
 
+import java.util.List;
+import modelo.Medico;
+
 
 public class Controlador {
     Persistencia persistencia ;
@@ -9,5 +12,9 @@ public class Controlador {
         this.persistencia = p ;
     }
     
+public List listar(){
+    return    persistencia.buscarTodos(Medico.class);
 
+
+}
 }
