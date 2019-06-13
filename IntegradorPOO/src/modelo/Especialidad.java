@@ -32,6 +32,12 @@ public class Especialidad {
         this.descripcion = descripcion;
         
     }
+
+    @Override
+    public String toString(){
+
+        return this.codEspecialidad + " " + this.nombre + " " + this.descripcion;
+    }
     
     
     
