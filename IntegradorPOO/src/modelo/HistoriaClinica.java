@@ -25,13 +25,19 @@ public class HistoriaClinica {
     private Paciente paciente;
     
     @OneToMany(mappedBy = "hc")
-    private ArrayList<Registro> registro;
+    private ArrayList<Registro> registros;
     
     
     //Constructores
     public HistoriaClinica() {
-        this.registro = new ArrayList<>();
+        
     }
+
+    public HistoriaClinica(Registro reg) {
+        registros = new ArrayList<>();
+        this.registros.add(reg);
+    }
+   
     
     
     
@@ -54,13 +60,13 @@ public class HistoriaClinica {
 
     
     public ArrayList<Registro> getRegistro() {
-        return registro;
+        return registros;
     }
 
     
     public void nuevoRegistro(String diagnostico){        
         Registro reg = new Registro(diagnostico);        
-        registro.add(reg);
+        registros.add(reg);
     
     }
     

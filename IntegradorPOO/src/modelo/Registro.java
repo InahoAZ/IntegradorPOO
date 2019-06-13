@@ -21,7 +21,7 @@ public class Registro {
     private Date fecha;
     private String disgnostico;
 
-    @ManyToOne 
+     @ManyToOne
     private Medico elmedico;
     
     @ManyToOne
