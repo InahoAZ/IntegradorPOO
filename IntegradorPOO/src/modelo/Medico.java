@@ -81,7 +81,7 @@ public class Medico extends Persona{
     @Override
     public String toString(){
     
-        return  super.getDni() + "  " +super.getNombre() + "  " + super.getApellido() + "  " + this.matricula;
+        return  super.getDni() + "  " +super.getNombre() + "  " + super.getApellido() ;
         
     }
     

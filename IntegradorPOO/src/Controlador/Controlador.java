@@ -12,7 +12,7 @@ public class Controlador {
         this.persistencia = p ;
     }
     
-public List listar(){
+public List listarMedicos(){
     return    persistencia.buscarTodos(Medico.class);
 
 
