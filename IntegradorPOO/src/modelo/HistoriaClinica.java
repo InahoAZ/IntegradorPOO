@@ -2,6 +2,7 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class HistoriaClinica {
     private Paciente paciente;
     
     @OneToMany(mappedBy = "hc")
-    private ArrayList<Registro> registros;
+    private List<Registro> registros;  //problema
     
     
     //Constructores
@@ -59,7 +60,7 @@ public class HistoriaClinica {
     }
 
     
-    public ArrayList<Registro> getRegistro() {
+    public List<Registro> getRegistro() {
         return registros;
     }
 
