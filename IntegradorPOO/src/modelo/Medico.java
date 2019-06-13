@@ -78,6 +78,12 @@ public class Medico extends Persona{
         this.citas.add(cita);
     }
     
+    @Override
+    public String toString(){
+    
+        return  super.getDni() + "  " +super.getNombre() + "  " + super.getApellido() + "  " + this.matricula;
+        
+    }
     
  
             
