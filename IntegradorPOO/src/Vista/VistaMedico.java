@@ -158,6 +158,11 @@ public class VistaMedico extends javax.swing.JFrame {
         jButton4.setText("Borrar Seleccion");
 
         jButton6.setText("Agregar medico");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -271,6 +276,12 @@ public class VistaMedico extends javax.swing.JFrame {
          this.dispose();
        previo.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        VentanaAgregarMedico vm = new VentanaAgregarMedico(controlador, this);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     
 
