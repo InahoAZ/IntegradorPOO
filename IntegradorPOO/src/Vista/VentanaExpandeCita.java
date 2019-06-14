@@ -108,7 +108,7 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
 
         jLabel4.setText("Informacion de registro seleccionado");
 
-        jLabel20.setText("Informacion del paciente");
+        jLabel20.setText("Informacion del Registro");
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setText("Codigo:");

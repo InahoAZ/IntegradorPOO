@@ -253,7 +253,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel20">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Informacion del paciente"/>
+                <Property name="text" type="java.lang.String" value="Informacion del Registro"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel21">
