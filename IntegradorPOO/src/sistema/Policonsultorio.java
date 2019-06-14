@@ -1,8 +1,8 @@
 package sistema;
 
 import Vista.VentanaPrincipal;
-import controlador.Controlador;
-import controlador.Persistencia;
+import Controlador.Controlador;
+import Controlador.Persistencia;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

@@ -1,5 +1,5 @@
 
-package controlador;
+package Controlador;
 
 import java.util.List;
 import modelo.Medico;
@@ -13,7 +13,7 @@ public class Controlador {
     }
     
 public List listarMedicos(){
-    return    persistencia.buscarTodos(Medico.class);
+    return persistencia.buscarTodos(Medico.class);
 
 
 }
