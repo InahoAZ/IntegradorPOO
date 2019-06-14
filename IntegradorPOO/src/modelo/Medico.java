@@ -14,7 +14,7 @@ public class Medico extends Persona{
      
     private long matricula;
     private int tiempoTurno;
-    private static int horasLaboral;    
+    private static int horasLaboral; // Parametro de las horas trabajadas para calcular citas disponibles    
     
     @ManyToMany (mappedBy = "medicos")    
     private List<Especialidad> especialidades;
