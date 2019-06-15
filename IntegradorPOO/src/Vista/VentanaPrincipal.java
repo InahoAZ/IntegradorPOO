@@ -75,6 +75,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         jButton2.setText("Config.");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,6 +150,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
          this.dispose();
         VentanaCitas cit1 = new VentanaCitas(Controlador, this);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // boton Configuraciones, abre la ventana para realizar ajustes sobre el sistema del policonsultorio
+         this.dispose();
+        VentanaConfiguraciones config1 = new VentanaConfiguraciones(Controlador, this);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
