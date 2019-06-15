@@ -17,8 +17,8 @@ public class VentanaEspecialidades extends javax.swing.JFrame {
     /**
      * Creates new form VentanaEspecialidades
      */
-    private Controlador c;
-    private JFrame p;
+    private final Controlador c;
+    private final JFrame p;
     
     public VentanaEspecialidades(Controlador c, JFrame p) {
         initComponents();

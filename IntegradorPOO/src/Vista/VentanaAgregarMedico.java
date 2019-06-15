@@ -14,15 +14,15 @@ import javax.swing.JFrame;
  */
 public class VentanaAgregarMedico extends javax.swing.JFrame {
 
-    private Controlador c;
-    private JFrame jf;
+    private final Controlador c;
+    private final JFrame p;
     /**
      * Creates new form VentanaAgregarMeidco
      */
     public VentanaAgregarMedico(Controlador c, JFrame jf) {
         initComponents();
         this.c = c;
-        this.jf = jf;
+        this.p = jf;
         this.setVisible(true);
         this.setResizable(false);
         
@@ -235,7 +235,9 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // boton cancelar, vuelve a pantalla anterior (pantalla medicos)
+        this.dispose();
+        p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
