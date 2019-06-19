@@ -25,6 +25,12 @@ public class Paciente extends Persona{
     public Paciente() {
     }
 
+    public Paciente(int dni) {
+        super(dni);
+    }
+    
+    
+
     public Paciente(String direccion, Date fnac, HistoriaClinica historiaC, Cita miCita, int dni, String nombre, String apellido, int telefono) {
         super(dni, nombre, apellido, telefono);
         this.direccion = direccion;
