@@ -7,6 +7,7 @@ package Vista;
 
 import Controlador.Controlador;
 import javax.swing.JFrame;
+import modelo.Paciente;
 
 /**
  *
@@ -85,6 +86,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jLabel4.setText("Ventana Gestion Pacientes");
 
         jButton1.setText("Listar/Actualizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Agregar Paciente");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -433,7 +439,8 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // boton modificar paciente: modifica un paciente "seleccionado" en la lista, abriendo una nueva ventana que lo permita hacer.
         if(!listaPacientes.isSelectionEmpty()){
                 this.dispose();
-                VentanaModifPacientes mp1 = new VentanaModifPacientes(c,this);
+                Paciente paci1 = (Paciente) listaPacientes.getSelectedValue();
+                VentanaModifPacientes mp1 = new VentanaModifPacientes(c,this,paci1);
         }
         
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -455,6 +462,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
         this.dispose();
         p.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // boton actualizar lista
+        this.listaPacientes.setListData(c.listarPacientes().toArray());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

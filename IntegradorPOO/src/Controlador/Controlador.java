@@ -86,4 +86,8 @@ public List listarMedicos(){
         
         
     }
+
+    public List listarPacientes() {
+        return persistencia.buscarTodos(Paciente.class);
+    }
 }

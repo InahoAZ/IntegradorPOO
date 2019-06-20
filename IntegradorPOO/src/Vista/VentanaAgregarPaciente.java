@@ -288,7 +288,7 @@ public class VentanaAgregarPaciente extends javax.swing.JFrame {
                         
                        String entrada = tnacimientodia.getSelectedItem().toString() + "/" + mes+ "/" + tnacimientoano.getSelectedItem().toString(); 
                         
-                        DateFormat format = new SimpleDateFormat("dd/mm/yyyy"); // Creamos un formato de fecha
+                        DateFormat format = new SimpleDateFormat("dd/MM/yyyy"); // Creamos un formato de fecha
                        
                         Date fecha = format.parse(entrada); 
                         

@@ -78,4 +78,13 @@ public class Paciente extends Persona{
     public void obtenerHC(Paciente paciente){ //Devuelve el Historial Clinico de un Paciente       
            
     }
+    
+    
+    
+    @Override
+    public String toString(){
+    
+                return this.getDni()+"      "+this.getApellido()+"      "+this.getNombre();
+    
+    }
 }
