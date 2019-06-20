@@ -80,8 +80,9 @@ public List listarMedicos(){
              HistoriaClinica auxHc = new HistoriaClinica();
              auxHc.setDescripcion("sin historia previa...");
              this.persistencia.insertar(auxHc);
-             //agregar a paciente su hc
-            // auxPa.setHistoriaC(auxHc);
+             
+             auxPa.setHistoriaC(auxHc);
+            
              this.persistencia.insertar(auxPa);
              
              //modificar hc, agregando dni paciente
