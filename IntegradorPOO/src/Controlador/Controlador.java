@@ -4,6 +4,7 @@ package Controlador;
 import java.util.Date;
 import java.util.List;
 import modelo.Especialidad;
+import modelo.HistoriaClinica;
 import modelo.Medico;
 import modelo.Paciente;
 
@@ -75,9 +76,15 @@ public List listarMedicos(){
              auxPa.setFnac(nacimiento);
              auxPa.setDireccion(direccion);
              
-             
-             
+             //crear hc, con descripcion nulla
+             HistoriaClinica auxHc = new HistoriaClinica();
+             auxHc.setDescripcion("sin historia previa...");
+             this.persistencia.insertar(auxHc);
+             //agregar a paciente su hc
+            // auxPa.setHistoriaC(auxHc);
              this.persistencia.insertar(auxPa);
+             
+             //modificar hc, agregando dni paciente
             this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
             this.persistencia.descartarTransaccion();
