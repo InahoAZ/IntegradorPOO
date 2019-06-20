@@ -90,4 +90,30 @@ public List listarMedicos(){
     public List listarPacientes() {
         return persistencia.buscarTodos(Paciente.class);
     }
+
+    public void modifPaciente(String dni, String nombre, String apellido, String celular, Date nacimiento, String direccion)  throws Exception{
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            
+           int num = Integer.parseInt(dni);
+             int tel = Integer.parseInt(celular);
+             Paciente auxPa = new Paciente(num);
+             auxPa.setNombre(nombre);
+             auxPa.setApellido(apellido);
+             auxPa.setTelefono(tel);
+             auxPa.setFnac(nacimiento);
+             auxPa.setDireccion(direccion);
+             
+            this.persistencia.modificar(auxPa);
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo modificar el paciente");
+        }
+        
+        
+        
+    }
 }
