@@ -84,6 +84,11 @@ public class VentanaModifPacientes extends javax.swing.JFrame {
 
         jButton2.setText("Modificar");
         jButton2.setActionCommand("btnModificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Volver");
         jButton1.setActionCommand("btnCancelar");
@@ -263,6 +268,15 @@ public class VentanaModifPacientes extends javax.swing.JFrame {
     private void dnippActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dnippActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dnippActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // boton modificar, acepta las modificaciones
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
