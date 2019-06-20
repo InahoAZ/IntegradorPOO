@@ -84,6 +84,8 @@ public List listarMedicos(){
              auxPa.setHistoriaC(auxHc);
             
              this.persistencia.insertar(auxPa);
+             auxHc.setPaciente(auxPa);
+             this.persistencia.modificar(auxHc);
              
              //modificar hc, agregando dni paciente
             this.persistencia.confirmarTransaccion();
