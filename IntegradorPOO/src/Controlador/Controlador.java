@@ -1,6 +1,7 @@
 
 package Controlador;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import modelo.Especialidad;
@@ -137,9 +138,32 @@ public List listarMedicos(){
         int quedan = miMes - hoy; //devuelve cuantos dias de citas se generaran, comenzando desde manana
         
         
+        //obtener medicos
+        List <Medico> misMedicos = new ArrayList<>(listarMedicos());
+       
+        //para todos los dias
+        if(misMedicos.size()>0){
+                    for (int i = hoy+1; i <= quedan; i++) {
+
+                        //para cada dia
+                        //repetir dia para cant de medicos
+                        for (int m = 0; m < misMedicos.size(); m++) {
+                            
+                            //para un medico creo las citas de hoy
+                            Medico m1 = misMedicos.get(m);
+                            
+                            
+                            
+                            
+                            
+                        }
+                        
+
+
+
+                    }
         
-        
-        
+        }
         
         
     }

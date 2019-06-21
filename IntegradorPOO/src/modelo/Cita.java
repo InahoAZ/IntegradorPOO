@@ -4,9 +4,11 @@ package modelo;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -14,7 +16,8 @@ import javax.persistence.Temporal;
 @Table (name="citas")
 public class Cita {
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="sec_codCitas", initialValue=1, allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_codCitas")
     private int codCita;
     
     @Temporal(javax.persistence.TemporalType.DATE)
