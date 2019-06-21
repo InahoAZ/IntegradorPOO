@@ -146,7 +146,7 @@ public List listarMedicos(){
         int cantidadCitas = 0;
         if(misMedicos.size()>0){
                     
-              
+                    
                     for (int i = hoy+1; i <= quedan; i++) {
 
                         //para cada dia
