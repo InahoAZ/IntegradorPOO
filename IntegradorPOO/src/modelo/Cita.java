@@ -34,6 +34,7 @@ public class Cita {
     
     
     public Cita() {
+        this.asistido = false;
     }
 
     public Cita(Date fecha, boolean asistido, Paciente elpaciente, Medico medic) {
@@ -59,6 +60,10 @@ public class Cita {
         return elpaciente;
     }
 
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
     public Medico getMedic() {
         return medic;
     }

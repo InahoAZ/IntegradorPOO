@@ -6,6 +6,11 @@
 package Vista;
 
 import Controlador.Controlador;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.sql.Time;
+import java.time.LocalTime;
+import static java.time.LocalTime.now;
+import java.util.Date;
 import javax.swing.JFrame;
 
 /**
@@ -56,10 +61,10 @@ public class VentanaCitas extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        combofecha1 = new javax.swing.JComboBox<>();
+        combofecha2 = new javax.swing.JComboBox<>();
+        combofecha3 = new javax.swing.JComboBox<>();
+        combofecha4 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -155,13 +160,13 @@ public class VentanaCitas extends javax.swing.JFrame {
 
         jLabel6.setText("Hasta");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        combofecha1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "30" }));
+        combofecha2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "30" }));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        combofecha3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "30" }));
+        combofecha4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "30" }));
 
         jLabel7.setText("AM");
 
@@ -181,17 +186,17 @@ public class VentanaCitas extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combofecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combofecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combofecha3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(combofecha4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addContainerGap())
@@ -209,10 +214,10 @@ public class VentanaCitas extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combofecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combofecha2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combofecha3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combofecha4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addGap(0, 35, Short.MAX_VALUE))
@@ -289,7 +294,24 @@ public class VentanaCitas extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // boton generar, actualizar lista de citas
-        c.generarCitas();
+        
+        
+        
+        Date hi = new Date();
+        int h1 = Integer.parseInt(combofecha1.getSelectedItem().toString());
+        hi.setHours(h1);
+        int m1 = Integer.parseInt(combofecha2.getSelectedItem().toString());
+        hi.setMinutes(m1);
+        
+        
+        Date hf = new Date();
+        int h2 = Integer.parseInt(combofecha3.getSelectedItem().toString());
+        hf.setHours(h2);
+        int m2 = Integer.parseInt(combofecha4.getSelectedItem().toString());
+        hf.setMinutes(m2);
+        
+        
+        c.generarCitas(hi,hf);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -320,14 +342,14 @@ public class VentanaCitas extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> combofecha1;
+    private javax.swing.JComboBox<String> combofecha2;
+    private javax.swing.JComboBox<String> combofecha3;
+    private javax.swing.JComboBox<String> combofecha4;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;

@@ -4,6 +4,7 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import modelo.Cita;
 import modelo.Especialidad;
 import modelo.HistoriaClinica;
 import modelo.Medico;
@@ -128,7 +129,7 @@ public List listarMedicos(){
         
     }
 
-    public void generarCitas() {
+    public void generarCitas(Date inicio, Date fin) {
        
         //cuantos dias me quedan de mes
         Date actual = new Date();
@@ -143,16 +144,41 @@ public List listarMedicos(){
        
         //para todos los dias
         if(misMedicos.size()>0){
+                    
+              
                     for (int i = hoy+1; i <= quedan; i++) {
 
                         //para cada dia
+                        
                         //repetir dia para cant de medicos
                         for (int m = 0; m < misMedicos.size(); m++) {
-                            
+                            Date comienza = inicio;
+                             Date termina = fin;
                             //para un medico creo las citas de hoy
                             Medico m1 = misMedicos.get(m);
                             
+                            //si el medico tiene tiempo por turno mayor a 0 minutos
+                            if(m1.getTiempoTurno()>0){
+                                //mientras se pueda crear citas para ese medico en el dia de hoy, crear
+                                int tiempoxTurno = m1.getTiempoTurno(); //15 minutos ej;
+                                Date tiempoMedico = inicio;
+                                tiempoMedico.setHours(0);
+                                tiempoMedico.setMinutes(tiempoxTurno);
+                                while(comienza.compareTo(termina) < 0 ){
+                                               
+                                            
+                                
+                                            //crear cita
+                                            altaCita(inicio);
+                                            
+                                            
+                                            //suma inicio local + t turno
+                                
+                                
+                                }
                             
+                            
+                            }
                             
                             
                             
@@ -194,5 +220,23 @@ public List listarMedicos(){
         
         
         
+    }
+
+    private void altaCita(Date inicio) {
+        this.persistencia.iniciarTransaccion();
+        try{
+        Cita auxCita = new Cita();
+        auxCita.setFecha(inicio);
+        
+        this.persistencia.insertar(auxCita);
+        
+        this.persistencia.confirmarTransaccion();
+        
+        
+        
+    }
+        catch(Exception e){
+            this.persistencia.descartarTransaccion();
+        }
     }
 }
