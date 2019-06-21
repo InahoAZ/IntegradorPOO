@@ -124,6 +124,11 @@ public class VentanaAgregarPaciente extends javax.swing.JFrame {
         );
 
         tnacimientodia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        tnacimientodia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tnacimientodiaActionPerformed(evt);
+            }
+        });
 
         tnacimientomes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
 
@@ -305,6 +310,10 @@ public class VentanaAgregarPaciente extends javax.swing.JFrame {
         
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tnacimientodiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tnacimientodiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tnacimientodiaActionPerformed
 
     /**
      * @param args the command line arguments

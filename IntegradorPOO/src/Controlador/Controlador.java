@@ -126,4 +126,49 @@ public List listarMedicos(){
         
         
     }
+
+    public void generarCitas() {
+       
+        //cuantos dias me quedan de mes
+        Date actual = new Date();
+        int hoy = actual.getDate(); //num de dia de hoy
+        int miMes = obtenerCantDias(actual.getMonth()+1); //entre 0 a 31
+        
+        int quedan = miMes - hoy; //devuelve cuantos dias de citas se generaran, comenzando desde manana
+        
+        
+        
+        
+        
+        
+        
+    }
+
+    private int obtenerCantDias(int mes) {
+        
+        
+        switch(mes){
+        
+            case 1: return 31;
+            case 2: return 28;
+            case 3: return 31;
+            case 4: return 30;
+            case 5: return 31;
+            case 6: return 30;
+            case 7: return 31;
+            case 8: return 31;
+            case 9: return 30;
+            case 10: return 31;
+            case 11: return 30;
+            case 12: return 31;
+            
+            default: return 0;
+                        
+        
+        
+        }
+        
+        
+        
+    }
 }
