@@ -143,6 +143,7 @@ public List listarMedicos(){
         List <Medico> misMedicos = new ArrayList<>(listarMedicos());
        
         //para todos los dias
+        int cantidadCitas = 0;
         if(misMedicos.size()>0){
                     
               
@@ -170,6 +171,7 @@ public List listarMedicos(){
                                 
                                             //crear cita
                                             altaCita(inicio);
+                                            cantidadCitas++;
                                             int minutos = inicio.getMinutes() + tiempoMedico.getMinutes();
                                             inicio.setMinutes(minutos);
                                             
@@ -189,9 +191,9 @@ public List listarMedicos(){
 
 
                     }
-        
+                    
         }
-        
+        System.out.println("se crearon "+ cantidadCitas +" citas");
         
     }
 
