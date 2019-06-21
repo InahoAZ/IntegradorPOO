@@ -170,7 +170,8 @@ public List listarMedicos(){
                                 
                                             //crear cita
                                             altaCita(inicio);
-                                            
+                                            int minutos = inicio.getMinutes() + tiempoMedico.getMinutes();
+                                            inicio.setMinutes(minutos);
                                             
                                             //suma inicio local + t turno
                                 
