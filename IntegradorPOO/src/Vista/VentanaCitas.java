@@ -11,7 +11,12 @@ import java.sql.Time;
 import java.time.LocalTime;
 import static java.time.LocalTime.now;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.Cita;
+import modelo.Especialidad;
 
 /**
  *
@@ -260,14 +265,37 @@ public class VentanaCitas extends javax.swing.JFrame {
         int m2 = Integer.parseInt(combofecha4.getSelectedItem().toString());
         hf.setMinutes(m2);
         
-        
-        c.generarCitas(hi,hf);
-        
+        if(!c.listarMedicos().isEmpty()){
+                c.generarCitas(hi,hf);
+        }else{
+                  JOptionPane.showMessageDialog(null, "No hay medicos");
+        }
         this.recargarLista();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        //boton inabilitar cita
+        if(listaCitas.isSelectionEmpty()){
+                      
+                     JOptionPane.showMessageDialog(null, "Para desactivar una cita  debe seleccionarla");
+        
+        }else{
+        
+            Cita auxC = (Cita) this.listaCitas.getSelectedValue();
+            try {
+                this.c.bajaCita(auxC.getCodCita());
+                 this.recargarLista();
+              
+               
+            } catch (Exception ex) {
+                Logger.getLogger(VentanaCitas.class.getName()).log(Level.SEVERE, null, ex);
+           
+            
+                     this.recargarLista();
+
+            }
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

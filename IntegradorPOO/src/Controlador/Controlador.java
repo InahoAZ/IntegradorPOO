@@ -319,4 +319,22 @@ public List listarMedicos(){
             System.err.println("No se pudo activar la especialidad");
         }
     }
+
+    public void bajaCita(int codCita) 
+          throws Exception{
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            Cita auxC = this.persistencia.buscar(Cita.class, codCita);
+            auxC.setEstado(false);
+            this.persistencia.modificar(auxC); // merger con cambio en boorado
+            
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo desactivar cita");
+        }
+        
+    }
 }
