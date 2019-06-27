@@ -42,6 +42,10 @@ public class Medico extends Persona{
         this.tiempoTurno = tiempoTurno;
     }
 
+    public Medico(int dniInt) {
+        
+    }
+
     public int getTiempoTurno() {
         return tiempoTurno;
     }

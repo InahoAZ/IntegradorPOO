@@ -4,6 +4,7 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ListModel;
 import modelo.Cita;
 import modelo.Especialidad;
 import modelo.HistoriaClinica;
@@ -18,12 +19,76 @@ public class Controlador {
         this.persistencia = p ;
     }
     
-public List listarMedicos(){
-   return persistencia.buscarTodos(Medico.class);
-   //return persistencia.buscarTodosCitas(27,12000999);
-  
+    public List listarMedicos(){
+       return persistencia.buscarTodos(Medico.class);
+       //return persistencia.buscarTodosCitas(27,12000999);
+    }
+    
+    public void altaMedico(String dni, String apellido, String nombre, String telefono, int tiempoTurno, ListModel esp )
+        throws Exception{
+        this.persistencia.iniciarTransaccion();
+
+        try{
+
+            int dniInt = Integer.parseInt(dni);
+            int telfInt = Integer.parseInt(telefono);
+            
+            Medico auxMed = new Medico(dniInt);        
+            auxMed.setApellido(apellido);
+            auxMed.setNombre(nombre);
+            auxMed.setTelefono(telfInt);
+            auxMed.setTiempoTurno(tiempoTurno);
+            auxMed.setEspecialidades((Especialidad)esp);
+            //Especialidad e1 = new Especialidad("Pediatra", "Descripcion");
+            //auxMed.setEspecialidades(e1);
+            
+            this.persistencia.insertar(auxMed);
+            //uxMed.setEspecialidades((Especialidad) esp.getElementAt(0));
+            this.persistencia.confirmarTransaccion();
+
+        } catch (Exception e){
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo cargar el Medico");
 
 }
+        }
+    public void modificarMedico(int dni, String apellido, String nombre, String telefono, int tTurno)
+    throws Exception{
+        this.persistencia.iniciarTransaccion();
+
+        try{
+            Medico m = new Medico(dni);            
+            m.setNombre(nombre);
+            m.setApellido(apellido);
+            m.setTelefono(Integer.parseInt(telefono));
+            m.setTiempoTurno(tTurno);            
+            this.persistencia.modificar(m);
+            this.persistencia.confirmarTransaccion();
+        }catch(Exception e){        
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo cargar el Medico");
+        }
+        
+    
+    
+    
+    
+    }
+    
+    public void addEspecialidadMedico(int dni, Especialidad esp)
+        throws Exception {
+        this.persistencia.iniciarTransaccion();
+        try {
+            Medico auxMedico = this.persistencia.buscar(Medico.class, dni);
+            auxMedico.setEspecialidades(esp);            
+            this.persistencia.modificar(auxMedico);
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo añadir la Especialidad");
+        }
+        }
+
 
     public void altaEspecialidad(String descrip, String nombre) 
         throws Exception{
@@ -101,6 +166,18 @@ public List listarMedicos(){
         }
         
         
+    }
+
+    public void eliminarMedico(Medico m)
+    throws Exception{
+        this.persistencia.iniciarTransaccion();
+        try{
+            this.persistencia.eliminar(m);
+        
+        }catch(Exception e){
+            
+        }
+    
     }
 
     public List listarPacientes() {
