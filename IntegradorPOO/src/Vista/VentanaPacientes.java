@@ -6,7 +6,11 @@
 package Vista;
 
 import Controlador.Controlador;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.Especialidad;
 import modelo.Paciente;
 
 /**
@@ -49,6 +53,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         listaPacientes = new javax.swing.JList();
         jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -137,6 +142,13 @@ public class VentanaPacientes extends javax.swing.JFrame {
             }
         });
 
+        jButton9.setText("DesBorrar Paciente");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -148,7 +160,8 @@ public class VentanaPacientes extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -165,15 +178,16 @@ public class VentanaPacientes extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton4)
-                        .addGap(13, 13, 13)
-                        .addComponent(jButton8)
-                        .addGap(0, 13, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton8))
                     .addComponent(jScrollPane4))
                 .addContainerGap())
         );
@@ -479,11 +493,36 @@ public class VentanaPacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        // borra
+        
+         if(listaPacientes.isSelectionEmpty()){
+                      
+                     JOptionPane.showMessageDialog(null, "Para borrar un paciente debe seleccionarle");
+        
+        }else{
+        
+            Paciente auxP = (Paciente) this.listaPacientes.getSelectedValue();
+            try {
+                this.c.borrarPaciente(auxP.getDni());
+                 this.actualizarlistaPacientes();
+              
+               
+            } catch (Exception ex) {
+                Logger.getLogger(VentanaPacientes.class.getName()).log(Level.SEVERE, null, ex);
+           
+            
+                     this.actualizarlistaPacientes();
+
+            }
+        }
+        
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        // ni se quien es este boton
+        
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -521,6 +560,34 @@ public class VentanaPacientes extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // desborrrat
+        
+        if(listaPacientes.isSelectionEmpty()){
+                      
+                     JOptionPane.showMessageDialog(null, "Para Desborrar un paciente debe seleccionarle");
+        
+        }else{
+        
+            Paciente auxP = (Paciente) this.listaPacientes.getSelectedValue();
+            try {
+                this.c.reactivarPaciente(auxP.getDni());
+                 this.actualizarlistaPacientes();
+              
+               
+            } catch (Exception ex) {
+                Logger.getLogger(VentanaPacientes.class.getName()).log(Level.SEVERE, null, ex);
+           
+            
+                     this.actualizarlistaPacientes();
+
+            }
+        }
+        
+        
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
      
     
    
@@ -545,6 +612,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

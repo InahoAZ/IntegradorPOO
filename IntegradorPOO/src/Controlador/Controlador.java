@@ -358,4 +358,49 @@ public List listarMedicos(){
      
         
     }
+
+    public void reactivarPaciente(int dni) 
+            
+                
+             throws Exception{
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            
+            Paciente auxP = this.persistencia.buscar(Paciente.class, dni);
+            auxP.setEstado(true);
+            this.persistencia.modificar(auxP); // merger con cambio en boorado
+            
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo reactivar Paciente");
+        }
+        
+        
+        
+    }
+
+    public void borrarPaciente(int dni) 
+        throws Exception{
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            
+            Paciente auxP = this.persistencia.buscar(Paciente.class, dni);
+            auxP.setEstado(false);
+            this.persistencia.modificar(auxP); // merger con cambio en boorado
+            
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo borrar Paciente");
+        }
+        
+    
+   
+    }
+        
 }
