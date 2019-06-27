@@ -337,4 +337,25 @@ public List listarMedicos(){
         }
         
     }
+
+    public void reactivarCita(int codCita) 
+            
+             throws Exception{
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            Cita auxC = this.persistencia.buscar(Cita.class, codCita);
+            auxC.setEstado(true);
+            this.persistencia.modificar(auxC); // merger con cambio en boorado
+            
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo reactivar cita");
+        }
+        
+     
+        
+    }
 }
