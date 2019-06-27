@@ -1,12 +1,16 @@
 
 package Controlador;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
+import modelo.Cita;
+import modelo.Especialidad;
 
 public class Persistencia {
         private final EntityManager em;
@@ -60,6 +64,38 @@ public class Persistencia {
         Root<T> inicio = consulta.from(clase);
         consulta.orderBy(cb.asc(inicio.get(orden)));
         return em.createQuery(consulta).getResultList();
+    }
+    
+    
+    public <T extends Object> List<T> buscarTodosCitas(int dia,int dni) {
+      
+         List<Object[]> gList = new ArrayList<>();
+         Query query = em.createNativeQuery("select codcita, asistido, estado, fecha, hora, medic_dni, elpaciente_dni from citas where medic_dni =  "+dni+ "  and extract(day from fecha) =  "+dia);
+         gList.addAll(query.getResultList());
+         return (List<T>) gList;
+        
+        
+    }
+
+   public int obtenerHoraVieja(int i,int dni,int dia) {
+        
+        int fecha;
+        Query query;
+        if(i==1){
+        //obtiene fecha mas peque
+                   query = em.createNativeQuery("select min(hora) from citas where medic_dni = "+dni+" and extract(day from fecha) =  "+dia);
+        }else{
+         //obtiene fecha mas peque
+                   query = em.createNativeQuery("select max(hora) from citas where medic_dni = "+dni+" and extract(day from fecha) =  "+dia);
+        }
+        
+            
+         
+         
+         fecha = Integer.parseInt(query.getResultList().get(0).toString());
+         
+         return fecha;
+        
     }
 
 }

@@ -19,8 +19,9 @@ public class Controlador {
     }
     
 public List listarMedicos(){
-    return persistencia.buscarTodos(Medico.class);
-
+   return persistencia.buscarTodos(Medico.class);
+   //return persistencia.buscarTodosCitas(27,12000999);
+  
 
 }
 
@@ -47,13 +48,16 @@ public List listarMedicos(){
         return persistencia.buscarTodos(Especialidad.class);
     }
 
-    public void bajaCliente(int codEspecialidad) 
+    public void bajaEspecialidad(int codEspecialidad) 
         throws Exception{
         
         this.persistencia.iniciarTransaccion();
         try {
             Especialidad auxEspe = this.persistencia.buscar(Especialidad.class, codEspecialidad);
-            this.persistencia.eliminar(auxEspe);
+            auxEspe.setEstadoActivo(false);
+            this.persistencia.modificar(auxEspe); // merger con cambio en boorado
+            
+            
             this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
             this.persistencia.descartarTransaccion();
@@ -128,74 +132,111 @@ public List listarMedicos(){
         
         
     }
-
+    
     public void generarCitas(Date inicio, Date fin) {
-       
-        //cuantos dias me quedan de mes
-        Date actual = new Date();
-        int hoy = actual.getDate(); //num de dia de hoy
-        int miMes = obtenerCantDias(actual.getMonth()+1); //entre 0 a 31
-        
-        int quedan = miMes - hoy; //devuelve cuantos dias de citas se generaran, comenzando desde manana
-        
-        
-        //obtener medicos
-        List <Medico> misMedicos = new ArrayList<>(listarMedicos());
-       
-        //para todos los dias
-        int cantidadCitas = 0;
-        if(misMedicos.size()>0){
-                    
-                    
-                    for (int i = hoy+1; i <= quedan; i++) {
-
-                        //para cada dia
-                        
-                        //repetir dia para cant de medicos
-                        for (int m = 0; m < misMedicos.size(); m++) {
-                            Date comienza = inicio;
-                             Date termina = fin;
-                            //para un medico creo las citas de hoy
-                            Medico m1 = misMedicos.get(m);
+    
+            int fechaInicioDia =  (inicio.getHours() * 100 )+(inicio.getMinutes());
+            int fechaFinalDia =  (fin.getHours() * 100 )+(fin.getMinutes());
+            int tomorrow = inicio.getDate() + 1; // hoy en ej:23  + 1 = 24(tomorrow)
+            int finalDayMes = obtenerCantDias(inicio.getMonth()+1); //entre 0 a 31
+             int auxHoraDiaInicio;
+             boolean hoyTieneCitas;
+            Date algebraHora = new Date();
+            Date diaHoy = new Date();
+            //obtener medicos
+             List <Medico> misMedicos = new ArrayList<>(listarMedicos());
+             int horaInicioViejo=0;
+             int horaFinalViejo=0;
+             
+             if(misMedicos.size()>0){
+                 
+                 for (int i = tomorrow; i <= finalDayMes; i++) {
+                     
+                            System.out.println("dia actual: " + i );
                             
-                            //si el medico tiene tiempo por turno mayor a 0 minutos
-                            if(m1.getTiempoTurno()>0){
-                                //mientras se pueda crear citas para ese medico en el dia de hoy, crear
-                                int tiempoxTurno = m1.getTiempoTurno(); //15 minutos ej;
-                                Date tiempoMedico = inicio;
-                                tiempoMedico.setHours(0);
-                                tiempoMedico.setMinutes(tiempoxTurno);
-                                while(comienza.compareTo(termina) < 0 ){
-                                               
+                            for (int m = 0; m < misMedicos.size(); m++) {
+                                    Medico m1 = misMedicos.get(m);
+                                    System.out.println("medico n: "+m);
+                                    System.out.println(m1);
+                                    
+                                    auxHoraDiaInicio= fechaInicioDia;
+                                    algebraHora.setHours(inicio.getHours());
+                                    algebraHora.setMinutes(inicio.getMinutes());
+                                    
+                                    diaHoy.setDate(i);
+                                    
+                                    
+                                      //obtener cantidad de citas de m1 para el dia de hoy... si tiene minimo una cita para hoy hoyTieneCitas = true;
+                                      
+                                     hoyTieneCitas = isHoyCita(diaHoy.getDate(),m1);
+                                      
+                                      if(hoyTieneCitas ){
+                                                 //obtener hora vieja (inicio y final)
+                                                 horaInicioViejo =  horaMedicVieja(1,m1.getDni(),diaHoy.getDate());//pasar el dia de hoy
+                                                 horaFinalViejo =  horaMedicVieja(2,m1.getDni(),diaHoy.getDate());//pasar el dia de hoy
+                                      }
+                                      
+                                     while(auxHoraDiaInicio<fechaFinalDia ){
+                                     
+                                         
+                                           
                                             
-                                
-                                            //crear cita
-                                            altaCita(inicio);
-                                            cantidadCitas++;
-                                            int minutos = inicio.getMinutes() + tiempoMedico.getMinutes();
-                                            inicio.setMinutes(minutos);
+                                            if(! hoyTieneCitas){ //si el medico es nuevo ( no tiene citas)
                                             
-                                            //suma inicio local + t turno
-                                
-                                
-                                }
-                            
-                            
-                            }
-                            
-                            
-                            
-                        }
-                        
+                                                    System.out.println("cita creada");
+                                                    altaCita(diaHoy,auxHoraDiaInicio,m1);
 
-
-
-                    }
-                    
-        }
-        System.out.println("se crearon "+ cantidadCitas +" citas");
-        
+                                                    algebraHora.setMinutes(algebraHora.getMinutes()+m1.getTiempoTurno());
+                                                    auxHoraDiaInicio = (algebraHora.getHours() * 100 )+(algebraHora.getMinutes());
+                                                
+                                            }else{ //si el medico ya tenia citas, se le agrega las extra (si el horario fue ampliado)
+                                                
+                                               //calcular si puede crear la cita
+                                               //sino simplemente ir al final de hora vieja
+                                       
+                                               if(  ( (auxHoraDiaInicio + m1.getTiempoTurno() ) < horaInicioViejo ) ||   (horaFinalViejo<auxHoraDiaInicio) ){//si puedo crear
+                                                    
+                                                        
+                                                      System.out.println("cita creada");
+                                                      altaCita(diaHoy,auxHoraDiaInicio,m1);
+                                                      algebraHora.setMinutes(algebraHora.getMinutes()+m1.getTiempoTurno());
+                                                      auxHoraDiaInicio = (algebraHora.getHours() * 100 )+(algebraHora.getMinutes());
+                                                
+                                                }else{
+                                                    //se podria modificar las 2 lineas siguientes por 
+                                                    //tomar simplemente el valor de fin viejo
+                                                    algebraHora.setMinutes(algebraHora.getMinutes()+m1.getTiempoTurno());
+                                                    auxHoraDiaInicio = (algebraHora.getHours() * 100 )+(algebraHora.getMinutes());
+                                                        
+                                                
+                                                }
+                                                      
+                                                
+                                            
+                                            }
+                                            
+                                            
+                                            
+                                            
+                                     
+                                     }
+                                    
+                            
+                            } 
+                 
+                 }
+             
+             
+             
+             }
+             
+             
+            
+            
     }
+
+    
+    
 
     private int obtenerCantDias(int mes) {
         
@@ -225,21 +266,57 @@ public List listarMedicos(){
         
     }
 
-    private void altaCita(Date inicio) {
+    private void altaCita(Date inicio,int horaCrear,Medico mm) {
         this.persistencia.iniciarTransaccion();
         try{
+           
         Cita auxCita = new Cita();
         auxCita.setFecha(inicio);
+        auxCita.setMedic(mm);
+        auxCita.setHora(horaCrear);
         
         this.persistencia.insertar(auxCita);
         
+       
         this.persistencia.confirmarTransaccion();
-        
         
         
     }
         catch(Exception e){
+           this.persistencia.descartarTransaccion();
+        }
+    }
+
+    private boolean isHoyCita(int date, Medico m1) {
+       
+        List listado = persistencia.buscarTodosCitas(date,m1.getDni());
+        
+        return !listado.isEmpty();
+        
+    }
+
+    private int horaMedicVieja(int i,int dni,int dia) {
+        return persistencia.obtenerHoraVieja(i,dni,dia);
+    }
+
+    public List listarCitas() {
+        return persistencia.buscarTodos(Cita.class);
+    }
+
+    public void reactivarEspecialidad(int codEspecialidad) 
+            throws Exception{
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            Especialidad auxEspe = this.persistencia.buscar(Especialidad.class, codEspecialidad);
+            auxEspe.setEstadoActivo(true);
+            this.persistencia.modificar(auxEspe); // merger con cambio en boorado
+            
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
             this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo activar la especialidad");
         }
     }
 }

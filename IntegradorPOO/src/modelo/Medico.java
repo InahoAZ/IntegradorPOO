@@ -84,7 +84,7 @@ public class Medico extends Persona{
         return  super.getDni() + "  " +super.getNombre() + "  " + super.getApellido() ;
         
     }
-    
+
  
             
     

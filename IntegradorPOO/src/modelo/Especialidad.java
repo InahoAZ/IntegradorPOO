@@ -22,20 +22,35 @@ public class Especialidad {
     private String nombre;
     private String descripcion;
     
+    private boolean estadoActivo;
+    
     @ManyToMany 
     private List<Medico> medicos;
 
     public Especialidad() {
         this.medicos = new ArrayList<>();
+        this.estadoActivo = true;
     }
 
     public Especialidad(String nombre, String descripcion) {
         this.medicos = new ArrayList<>();
         this.nombre = nombre;
         this.descripcion = descripcion;
+         this.estadoActivo = true;
         
     }
 
+    public boolean isEstadoActivo() {
+        return estadoActivo;
+    }
+
+    public void setEstadoActivo(boolean estadoActivo) {
+        this.estadoActivo = estadoActivo;
+    }
+
+    
+    
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -62,7 +77,7 @@ public class Especialidad {
     @Override
     public String toString(){
 
-        return this.codEspecialidad + " " + this.nombre;
+        return this.codEspecialidad + " " + this.estadoActivo + "  "+nombre;
     }
     
     
