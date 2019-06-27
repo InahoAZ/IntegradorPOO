@@ -21,12 +21,16 @@ public class Paciente extends Persona{
     
     @OneToOne
     private Cita miCita;   
+    
+    private boolean estado; 
 
     public Paciente() {
+        estado = true;
     }
 
     public Paciente(int dni) {
         super(dni);
+        estado = true;
     }
     
     
@@ -37,8 +41,19 @@ public class Paciente extends Persona{
         this.fnac = fnac;
         this.historiaC = historiaC;
         this.miCita = miCita;
+        estado = true;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    
+    
     public String getDireccion() {
         return direccion;
     }
@@ -84,7 +99,7 @@ public class Paciente extends Persona{
     @Override
     public String toString(){
     
-                return this.getDni()+"      "+this.getApellido()+"      "+this.getNombre();
+                return this.getDni()+"      "+this.getApellido()+"      "+this.getNombre()+"   "+this.estado;
     
     }
 }
