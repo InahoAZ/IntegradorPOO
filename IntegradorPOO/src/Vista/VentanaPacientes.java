@@ -56,21 +56,21 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        labeldni = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        labelfecha = new javax.swing.JLabel();
+        labeltelefono = new javax.swing.JLabel();
+        labelnombre = new javax.swing.JLabel();
+        labelapellido = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        labelcita = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        labeldescripcion = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -195,7 +195,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("DNI:");
 
-        jLabel11.setText("--------");
+        labeldni.setText("--------");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Apellido:");
@@ -209,13 +209,13 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Fecha Nacimiento:");
 
-        jLabel15.setText("--------");
+        labelfecha.setText("--------");
 
-        jLabel14.setText("--------");
+        labeltelefono.setText("--------");
 
-        jLabel13.setText("--------");
+        labelnombre.setText("--------");
 
-        jLabel12.setText("--------");
+        labelapellido.setText("--------");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Informacion del Paciente Seleccionado:");
@@ -223,7 +223,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setText("Cita Solicitada:");
 
-        jLabel17.setText("--------");
+        labelcita.setText("--------");
 
         jButton6.setText("Descartar");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -233,9 +233,9 @@ public class VentanaPacientes extends javax.swing.JFrame {
         });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel21.setText("Descripcion:");
+        jLabel21.setText("Direccion:");
 
-        jLabel22.setText("--------");
+        labeldescripcion.setText("--------");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -252,7 +252,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel21)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel22))
+                                .addComponent(labeldescripcion))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,17 +262,17 @@ public class VentanaPacientes extends javax.swing.JFrame {
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel15)))
+                                    .addComponent(labeldni)
+                                    .addComponent(labelapellido)
+                                    .addComponent(labelnombre)
+                                    .addComponent(labeltelefono)
+                                    .addComponent(labelfecha)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel17)))
+                                .addComponent(labelcita)))
                         .addGap(134, 134, 134))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -283,31 +283,31 @@ public class VentanaPacientes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel11))
+                    .addComponent(labeldni))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel12))
+                    .addComponent(labelapellido))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel13))
+                    .addComponent(labelnombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel14))
+                    .addComponent(labeltelefono))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel15))
+                    .addComponent(labelfecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jLabel22))
+                    .addComponent(labeldescripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel17))
+                    .addComponent(labelcita))
                 .addGap(18, 18, 18)
                 .addComponent(jButton6))
         );
@@ -542,6 +542,41 @@ public class VentanaPacientes extends javax.swing.JFrame {
 
     private void listaPacientesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaPacientesValueChanged
         // valor de la lista cambiado
+        if(!this.listaPacientes.isSelectionEmpty()){//hay algo seleccionado
+            //tomo valor
+            Paciente auxP =  (Paciente) listaPacientes.getSelectedValue();
+            
+            String dni = String.valueOf(auxP.getDni());
+            String telef = String.valueOf(auxP.getTelefono());
+            this.labeldni.setText(dni);
+             this.labeltelefono.setText(telef);
+             
+            this.labelapellido.setText(auxP.getApellido());
+            this.labelnombre.setText(auxP.getNombre());
+            
+            this.labelfecha.setText(auxP.getFnac().toString());
+            this.labeldescripcion.setText(auxP.getDireccion());
+            
+          
+            
+            
+            if(c.tieneCita(auxP)){
+            //anular la carga de citas
+            
+            //activar boton descarar
+                    
+            
+            
+            }else{
+            
+                this.labelcita.setText("no hay cita asignada");
+                //anular boton descartar
+            
+            }
+        
+          
+        
+        }
         
         
     }//GEN-LAST:event_listaPacientesValueChanged
@@ -616,19 +651,12 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -647,6 +675,13 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelapellido;
+    private javax.swing.JLabel labelcita;
+    private javax.swing.JLabel labeldescripcion;
+    private javax.swing.JLabel labeldni;
+    private javax.swing.JLabel labelfecha;
+    private javax.swing.JLabel labelnombre;
+    private javax.swing.JLabel labeltelefono;
     private javax.swing.JList listaPacientes;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
 import modelo.Cita;
 import modelo.Especialidad;
+import modelo.Paciente;
 
 public class Persistencia {
         private final EntityManager em;
@@ -95,6 +96,15 @@ public class Persistencia {
          fecha = Integer.parseInt(query.getResultList().get(0).toString());
          
          return fecha;
+        
+    }
+
+    public <T extends Object> List<T> buscarCitas(Paciente auxP) {
+        
+         List<Object[]> gList = new ArrayList<>();
+         Query query = em.createNativeQuery("select codcita, asistido, estado, fecha, hora, medic_dni, elpaciente_dni from citas where elPaciente_dni =  "+auxP.getDni());
+         gList.addAll(query.getResultList());
+         return (List<T>) gList;
         
     }
 

@@ -21,7 +21,7 @@ public class Controlador {
     
     public List listarMedicos(){
        return persistencia.buscarTodos(Medico.class);
-       //return persistencia.buscarTodosCitas(27,12000999);
+      
     }
     
     public void altaMedico(String dni, String apellido, String nombre, String telefono, int tiempoTurno, ListModel esp )
@@ -478,6 +478,15 @@ public class Controlador {
         
     
    
+    }
+
+    public boolean tieneCita(Paciente auxP) {
+        //devuelve true or false depende si el paciente tiene alguna cita
+      List lista =  this.persistencia.buscarCitas(auxP);
+       
+       return !lista.isEmpty();
+        
+        
     }
         
 }
