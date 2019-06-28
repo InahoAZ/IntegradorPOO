@@ -62,7 +62,8 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
         txtTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        spnTiempTurno = new javax.swing.JSpinner();
+        cbTiempoTurno = new javax.swing.JComboBox();
+        jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstEspecialidades = new javax.swing.JList();
         jLabel8 = new javax.swing.JLabel();
@@ -111,6 +112,10 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
 
         jLabel7.setText("Tiempo Turno");
 
+        cbTiempoTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "10", "15", "20", "30", "45", "55" }));
+
+        jLabel9.setText("minutos");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -139,7 +144,9 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(spnTiempTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -163,9 +170,10 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(spnTiempTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(jLabel9))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(lstEspecialidades);
@@ -278,7 +286,9 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDNI
 
     private void btnAddEspecialidadDesdeMedico(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEspecialidadDesdeMedico
-        // Agregar Especialidad en lista temporal dentro de Agregar Medico        
+        // Agregar Especialidad en lista temporal dentro de Agregar Medico
+        
+        
         this.esp.add((Especialidad)this.cbEspecialidades.getSelectedItem());
         this.lstEspecialidades.setListData(esp.toArray());
         this.cbEspecialidades.removeItem(0);
@@ -289,8 +299,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Elimina Especialidad en lista temporal para agregar medico
-        if(!this.lstEspecialidades.isSelectionEmpty()){
-        
+        if(!this.lstEspecialidades.isSelectionEmpty()){     
          
             
             this.cbEspecialidades.addItem(this.lstEspecialidades.getSelectedValue());
@@ -319,13 +328,20 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Agrega un nuevo medico a la bd        
-        if(txtDNI.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty()|| spnTiempTurno.getComponentCount() == 0){
+        if(txtDNI.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty()|| Integer.parseInt((String)cbTiempoTurno.getSelectedItem()) == 0){
                     JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos para agregar un nuevo medico");
         }else{
             try{
-                controlador.altaMedico(txtDNI.getText(),txtApellido.getText().toUpperCase(), txtNombre.getText().toUpperCase(), txtTelefono.getText().toUpperCase(), spnTiempTurno.getComponentCount(), this.lstEspecialidades.getModel());
-                //this.recargar();
-            }catch(Exception e){
+                this.lstEspecialidades.getModel();
+                controlador.altaMedico(txtDNI.getText(),txtApellido.getText().toUpperCase(), txtNombre.getText().toUpperCase(), txtTelefono.getText().toUpperCase(), Integer.parseInt((String)cbTiempoTurno.getSelectedItem()), this.lstEspecialidades.getModel());
+                this.txtApellido.setText("");
+                this.txtNombre.setText("");
+                this.txtDNI.setText("");
+                this.txtTelefono.setText("");
+                List auxlili = new ArrayList();
+                this.lstEspecialidades.setListData(auxlili.toArray());
+                
+            }catch(Exception e){                
                 Logger.getLogger(VentanaAgregarMedico.class.getName()).log(Level.SEVERE, null, e);
             }
         }
@@ -339,6 +355,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox cbEspecialidades;
+    private javax.swing.JComboBox cbTiempoTurno;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -350,10 +367,10 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList lstEspecialidades;
-    private javax.swing.JSpinner spnTiempTurno;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtNombre;

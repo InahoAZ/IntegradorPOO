@@ -72,8 +72,7 @@ public class Persistencia {
          List<Object[]> gList = new ArrayList<>();
          Query query = em.createNativeQuery("select codcita, asistido, estado, fecha, hora, medic_dni, elpaciente_dni from citas where medic_dni =  "+dni+ "  and extract(day from fecha) =  "+dia);
          gList.addAll(query.getResultList());
-         return (List<T>) gList;
-        
+         return (List<T>) gList;        
         
     }
 
@@ -85,16 +84,22 @@ public class Persistencia {
         //obtiene fecha mas peque
                    query = em.createNativeQuery("select min(hora) from citas where medic_dni = "+dni+" and extract(day from fecha) =  "+dia);
         }else{
-         //obtiene fecha mas peque
+         //obtiene fecha mas grandotota
                    query = em.createNativeQuery("select max(hora) from citas where medic_dni = "+dni+" and extract(day from fecha) =  "+dia);
         }
         
-            
+        fecha = Integer.parseInt(query.getResultList().get(0).toString());
          
-         
-         fecha = Integer.parseInt(query.getResultList().get(0).toString());
-         
-         return fecha;
+        return fecha;
+        
+    }
+   
+   public <T extends Object> List<T> listarMedicosActivos() {
+      
+         List<Object[]> gList = new ArrayList<>();
+         Query query = em.createNativeQuery("select m.dni, p.apellido, p.nombre from personas p, medico m where m.activo = true AND p.dni = m.dni");
+         gList.addAll(query.getResultList());
+         return (List<T>) gList;        
         
     }
 
