@@ -2,16 +2,23 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @DiscriminatorValue("medico")
-public class Medico extends Persona{
-     
+public class Medico extends Persona{    
+    @SequenceGenerator(name="sec_matricula", initialValue=1, allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="sec_matricula") 
     private long matricula;
     private int tiempoTurno;
     private static int horasLaboral; // Parametro de las horas trabajadas para calcular citas disponibles    
@@ -24,6 +31,8 @@ public class Medico extends Persona{
     
    @OneToMany(mappedBy = "elmedico")
    private List<Registro> registros;
+   
+   private boolean activo;
     
     
 
@@ -43,9 +52,21 @@ public class Medico extends Persona{
     }
 
     public Medico(int dniInt) {
+        super(dniInt);
+        this.registros = new ArrayList<>();
+        this.citas = new ArrayList<>();
+        this.especialidades = new ArrayList<>();
         
     }
 
+    public boolean isActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
     public int getTiempoTurno() {
         return tiempoTurno;
     }
@@ -81,6 +102,20 @@ public class Medico extends Persona{
     public void setCitas(Cita cita) {
         this.citas.add(cita);
     }
+    
+    public void agregarEspecialidad(Especialidad es){
+        System.out.println(es.getDescripcion());
+        this.especialidades.add(es);
+        es.agregarMedico(this);
+        System.out.println("Se agrego");
+        
+    }
+    
+    public void eliminarEspecialidad(Especialidad es){
+        this.especialidades.remove(es);
+        
+    }
+    
     
     @Override
     public String toString(){

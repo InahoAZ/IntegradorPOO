@@ -2,7 +2,9 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,15 +27,15 @@ public class Especialidad {
     private boolean estadoActivo;
     
     @ManyToMany 
-    private List<Medico> medicos;
+    private Set<Medico> medicos;
 
     public Especialidad() {
-        this.medicos = new ArrayList<>();
+        this.medicos = new HashSet();
         this.estadoActivo = true;
     }
 
     public Especialidad(String nombre, String descripcion) {
-        this.medicos = new ArrayList<>();
+        this.medicos = new HashSet();
         this.nombre = nombre;
         this.descripcion = descripcion;
          this.estadoActivo = true;
@@ -69,6 +71,15 @@ public class Especialidad {
 
     public String getDescripcion() {
         return descripcion;
+    }
+    
+    public void agregarMedico(Medico m){
+        this.medicos.add(m);
+    }
+    
+    public void eliminarMedico(Medico m){
+        this.medicos.remove(m);
+        m.eliminarEspecialidad(this);        
     }
 
     

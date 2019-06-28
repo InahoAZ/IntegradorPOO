@@ -26,27 +26,37 @@ public class Controlador {
     
     public void altaMedico(String dni, String apellido, String nombre, String telefono, int tiempoTurno, ListModel esp )
         throws Exception{
-        this.persistencia.iniciarTransaccion();
-
+        
         try{
-
+            this.persistencia.iniciarTransaccion();
+    
             int dniInt = Integer.parseInt(dni);
-            int telfInt = Integer.parseInt(telefono);
-            
-            Medico auxMed = new Medico(dniInt);        
+            int telfInt = Integer.parseInt(telefono);            
+            Medico auxMed = new Medico(dniInt);            
+            System.out.println(dniInt);
+            for (int i = 0; i < esp.getSize(); i++) {  //Asocia todas las especialidades de la lista al medico.     
+                
+                auxMed.agregarEspecialidad((Especialidad)esp.getElementAt(i));
+            }
+            //Especialidad esss = (Especialidad)esp.getElementAt(0);
+            //System.out.println(esss.getClass());
+            //Especialidad esss = new Especialidad("Coso","Cosito");
+                        
+                      
             auxMed.setApellido(apellido);
             auxMed.setNombre(nombre);
             auxMed.setTelefono(telfInt);
             auxMed.setTiempoTurno(tiempoTurno);
-            auxMed.setEspecialidades((Especialidad)esp);
-            //Especialidad e1 = new Especialidad("Pediatra", "Descripcion");
-            //auxMed.setEspecialidades(e1);
+            
+            //this.persistencia.modificar(auxMed);
+            this.persistencia.modificar((Especialidad)esp.getElementAt(0));
             
             this.persistencia.insertar(auxMed);
             //uxMed.setEspecialidades((Especialidad) esp.getElementAt(0));
             this.persistencia.confirmarTransaccion();
 
         } catch (Exception e){
+            System.out.println(e.getMessage());
             this.persistencia.descartarTransaccion();
             System.err.println("No se pudo cargar el Medico");
 
@@ -172,10 +182,13 @@ public class Controlador {
     throws Exception{
         this.persistencia.iniciarTransaccion();
         try{
-            this.persistencia.eliminar(m);
+            Medico auxMed = this.persistencia.buscar(Medico.class, m.getDni());
+            auxMed.setActivo(false);
+            this.persistencia.modificar(m);
+            this.persistencia.confirmarTransaccion();
         
         }catch(Exception e){
-            
+            this.persistencia.descartarTransaccion();
         }
     
     }
