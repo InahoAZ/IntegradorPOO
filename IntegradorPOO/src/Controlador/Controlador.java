@@ -493,14 +493,7 @@ public class Controlador {
    
     }
 
-    public boolean tieneCita(Paciente auxP) {
-        //devuelve true or false depende si el paciente tiene alguna cita
-      List lista =  this.persistencia.buscarCitas(auxP);
-       
-       return !lista.isEmpty();
-        
-        
-    }
+    
 
         
 }

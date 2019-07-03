@@ -104,14 +104,7 @@ public class Persistencia {
         
     }
 
-    public <T extends Object> List<T> buscarCitas(Paciente auxP) {
-        
-         List<Object[]> gList = new ArrayList<>();
-         Query query = em.createNativeQuery("select codcita, asistido, estado, fecha, hora, medic_dni, elpaciente_dni from citas where elPaciente_dni =  "+auxP.getDni());
-         gList.addAll(query.getResultList());
-         return (List<T>) gList;
-        
-    }
+  
 
     
 
