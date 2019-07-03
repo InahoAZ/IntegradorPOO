@@ -27,19 +27,27 @@ public class Especialidad {
     private boolean estadoActivo;
     
     @ManyToMany 
-    private Set<Medico> medicos;
+    private List<Medico> medicos;
 
     public Especialidad() {
-        this.medicos = new HashSet();
+        this.medicos = new ArrayList();
         this.estadoActivo = true;
     }
 
     public Especialidad(String nombre, String descripcion) {
-        this.medicos = new HashSet();
+        this.medicos = new ArrayList();
         this.nombre = nombre;
         this.descripcion = descripcion;
          this.estadoActivo = true;
         
+    }
+
+    public List<Medico> getMedicos() {
+        return medicos;
+    }
+
+    public void setMedicos(List<Medico> medicos) {
+        this.medicos = medicos;
     }
 
     public boolean isEstadoActivo() {
