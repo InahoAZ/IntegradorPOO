@@ -67,7 +67,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstEspecialidades = new javax.swing.JList();
         jLabel8 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -180,9 +180,9 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
 
         jLabel8.setText("Especialidades");
 
-        jButton3.setText("+");
-        jButton3.setActionCommand("btnAddEsp");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("+");
+        btnAdd.setActionCommand("btnAddEsp");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddEspecialidadDesdeMedico(evt);
             }
@@ -232,7 +232,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -260,7 +260,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3))
+                            .addComponent(btnAdd))
                         .addGap(7, 7, 7)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -286,12 +286,15 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDNI
 
     private void btnAddEspecialidadDesdeMedico(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEspecialidadDesdeMedico
-        // Agregar Especialidad en lista temporal dentro de Agregar Medico
+        // Agregar Especialidad en lista temporal dentro de Agregar Medico        
+        if(this.cbEspecialidades.getSelectedItem()!=null){
+            this.esp.add((Especialidad)this.cbEspecialidades.getSelectedItem());
+            this.lstEspecialidades.setListData(esp.toArray());
+            this.cbEspecialidades.removeItem((Especialidad)this.cbEspecialidades.getSelectedItem());        
+        }else{
+            this.btnAdd.setEnabled(false);
+        }
         
-        
-        this.esp.add((Especialidad)this.cbEspecialidades.getSelectedItem());
-        this.lstEspecialidades.setListData(esp.toArray());
-        this.cbEspecialidades.removeItem(0);
         
         //controlador.addEspecialidadMedico((Especialidad)this.cbEspecialidades.getSelectedItem());
         
@@ -299,16 +302,15 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // Elimina Especialidad en lista temporal para agregar medico
-        if(!this.lstEspecialidades.isSelectionEmpty()){     
-         
             
-            this.cbEspecialidades.addItem(this.lstEspecialidades.getSelectedValue());
-            
-            this.lstEspecialidades.remove(this.lstEspecialidades.getSelectedIndex());
-            
+            this.cbEspecialidades.setModel(new DefaultComboBoxModel(controlador.listarEspecialidades().toArray()));
+            List auxlili = new ArrayList();
+            this.lstEspecialidades.setListData(auxlili.toArray());
+            this.esp.clear();
+            this.btnAdd.setEnabled(true);
             //((DefaultListModel) this.lstEspecialidades.getModel()).
         
-        }
+        
         
         
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -340,6 +342,8 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
                 this.txtTelefono.setText("");
                 List auxlili = new ArrayList();
                 this.lstEspecialidades.setListData(auxlili.toArray());
+                this.btnAdd.setEnabled(true);
+                this.cbEspecialidades.setModel(new DefaultComboBoxModel(controlador.listarEspecialidades().toArray()));
                 
             }catch(Exception e){                
                 Logger.getLogger(VentanaAgregarMedico.class.getName()).log(Level.SEVERE, null, e);
@@ -354,11 +358,11 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JComboBox cbEspecialidades;
     private javax.swing.JComboBox cbTiempoTurno;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
