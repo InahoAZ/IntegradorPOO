@@ -32,6 +32,20 @@ public class VentanaCitasReg extends javax.swing.JFrame {
         this.setResizable(false);
         this.ppp = paci;
         
+        if(paci.getMiCita() == null){//si tiene cita actual, ponerla
+            this.labelCita.setText("no tiene una cita actualmente");
+        }else{
+            
+            this.labelCita.setText(paci.getMiCita().toString());
+        
+        }
+        
+        //poner citas de el, asistidas
+        this.listaAsistida.setListData(c.listarCitasAsistidas(paci).toArray());
+        //poner citas de el, no asistidas
+        this.listaFalta.setListData(c.listarCitasFaltas(paci).toArray());
+        
+        
     }
 
     /**
@@ -51,7 +65,7 @@ public class VentanaCitasReg extends javax.swing.JFrame {
         listaFalta = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         listaAsistida = new javax.swing.JList();
-        jLabel5 = new javax.swing.JLabel();
+        labelCita = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,7 +83,7 @@ public class VentanaCitasReg extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(listaAsistida);
 
-        jLabel5.setText("-------");
+        labelCita.setText("-------");
 
         jButton1.setText("Volver");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +122,7 @@ public class VentanaCitasReg extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(labelCita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
@@ -118,7 +132,7 @@ public class VentanaCitasReg extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelCita, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,9 +167,9 @@ public class VentanaCitasReg extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelCita;
     private javax.swing.JList listaAsistida;
     private javax.swing.JList listaFalta;
     // End of variables declaration//GEN-END:variables
