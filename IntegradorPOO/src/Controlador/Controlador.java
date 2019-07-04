@@ -650,7 +650,7 @@ public class Controlador {
         List citasRecor = new ArrayList<>();
         for (int i = 0; i < citas.size(); i++) {
             Cita cc1 = (Cita) citas.get(i);
-            if(!cc1.isRecordado()){
+            if(!cc1.isRecordado() && cc1.getElpaciente() != null){
                     
                     citasRecor.add(cc1);
             
@@ -675,6 +675,29 @@ public class Controlador {
         }
         
         return citasRecor;
+        
+        
+    }
+
+    public void recordarCita(Cita cc) {
+        
+            this.persistencia.iniciarTransaccion();
+        try {
+            
+            
+            
+             cc.setRecordado(true);
+       
+     
+            this.persistencia.modificar(cc);
+
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo recordar la cita");
+        }
+        
         
         
     }
