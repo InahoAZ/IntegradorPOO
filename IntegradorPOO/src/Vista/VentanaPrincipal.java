@@ -22,6 +22,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Controlador = c;
         this.setVisible(true);
         this.setResizable(false);
+         this.setLocationRelativeTo(null);
     }
 
     /**

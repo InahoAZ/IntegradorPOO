@@ -27,7 +27,7 @@ public class VentanaCrearRegistro extends javax.swing.JFrame {
         
          this.c =c;
         this.p =p;
-
+this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 

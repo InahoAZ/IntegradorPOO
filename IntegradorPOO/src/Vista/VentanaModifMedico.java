@@ -37,6 +37,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         this.p =p;
         this.m = m;
         this.esV = esV;
+        this.setLocationRelativeTo(null);
 
         this.txtDNI.setText(Integer.toString(m.getDni()));
         this.txtApellido.setText(m.getApellido());

@@ -31,6 +31,7 @@ public class VentanaAgregarPaciente extends javax.swing.JFrame {
         initComponents();
         
         this.c = c;
+        this.setLocationRelativeTo(null);
         this.p = p;
         this.setVisible(true);
         this.setResizable(false);

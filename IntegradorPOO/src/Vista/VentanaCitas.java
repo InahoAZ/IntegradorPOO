@@ -34,7 +34,7 @@ public class VentanaCitas extends javax.swing.JFrame {
         initComponents();
         this.c =c;
         this.p =p;
-
+this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
         

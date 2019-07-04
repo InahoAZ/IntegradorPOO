@@ -30,7 +30,7 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
         this.pa = paci;
         this.setVisible(true);
         this.setResizable(false);
-        
+        this.setLocationRelativeTo(null);
         
         String dn = String.valueOf(paci.getDni());
         this.labdni.setText(dn);

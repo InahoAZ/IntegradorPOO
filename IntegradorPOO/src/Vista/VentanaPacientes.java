@@ -36,6 +36,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         this.c = c;
         this.p = p;
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
 

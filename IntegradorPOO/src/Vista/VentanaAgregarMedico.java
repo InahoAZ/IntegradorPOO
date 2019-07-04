@@ -32,6 +32,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
         initComponents();
         this.controlador = controlador;
         this.previo = previo;
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
         controlador.listarEspecialidades();

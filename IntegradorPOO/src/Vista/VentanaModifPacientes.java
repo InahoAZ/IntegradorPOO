@@ -36,6 +36,7 @@ public class VentanaModifPacientes extends javax.swing.JFrame {
         this.p =p;
         this.miPaciente = p1;
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         String dni = String.valueOf(miPaciente.getDni());
         this.dnipp.setText(dni);
         this.nombrepp.setText(miPaciente.getNombre());

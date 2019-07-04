@@ -33,6 +33,7 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         this.c =c;
         this.p =p;
         this.cit = cit;
+        this.setLocationRelativeTo(null);
         Paciente auxPaciente = cit.getElpaciente();
         HistoriaClinica hcPaciente = auxPaciente.getHistoriaC();
         List<Registro> regHcPaciente = hcPaciente.getRegistro();

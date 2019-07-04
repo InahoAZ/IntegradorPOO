@@ -32,6 +32,7 @@ public class VistaMedico extends javax.swing.JFrame {
         this.controlador = c ;
         this.setVisible(true);
         this.previo = p ;
+        this.setLocationRelativeTo(null);
     }
 
     /**
