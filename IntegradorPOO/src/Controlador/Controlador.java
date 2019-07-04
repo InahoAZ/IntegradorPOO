@@ -577,6 +577,18 @@ public class Controlador {
         
     }
 
+    public List listarCitasAsistidas(Paciente paci) {
+        List citas = persistencia.buscarTodos(Cita.class);
+        
+        
+    }
+
+    public List listarCitasFaltas(Paciente paci) {
+      
+        
+        
+    }
+
     
 
         
