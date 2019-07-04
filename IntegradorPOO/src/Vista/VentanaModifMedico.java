@@ -7,7 +7,9 @@ package Vista;
 
 import Controlador.Controlador;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -28,15 +30,16 @@ public class VentanaModifMedico extends javax.swing.JFrame {
     private final Controlador c;
     private final JFrame p;
     private final Medico m;
-    private List<Especialidad> esp = new ArrayList<>();
-    private final List<Especialidad> esV;
+    private Set<Especialidad> esp = new HashSet();
+    private final List<Especialidad> esNuevas;
     
-    public VentanaModifMedico(Controlador c, JFrame p, Medico m, List<Especialidad> esV) {
+    public VentanaModifMedico(Controlador c, JFrame p, Medico m) {
         initComponents();
         this.c =c;
         this.p =p;
         this.m = m;
-        this.esV = esV;
+        
+        this.esNuevas = new ArrayList<>();
         this.setLocationRelativeTo(null);
 
         this.txtDNI.setText(Integer.toString(m.getDni()));
@@ -113,7 +116,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cancelar");
+        jButton1.setText("Volver");
         jButton1.setActionCommand("btnCancelar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,11 +129,11 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(167, 167, 167)
+                .addGap(179, 179, 179)
                 .addComponent(jButton2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(268, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +246,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                                             .addComponent(btnAdd)
                                             .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 62, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -255,19 +258,17 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDel)
-                                .addGap(34, 34, 34))))
+                                .addComponent(btnDel))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -281,6 +282,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // cancelar accion de modificar un medico, vuelve a pagina anterior
+        this.esNuevas.clear();
         this.dispose();
         p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -292,9 +294,12 @@ public class VentanaModifMedico extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // Agregar Especialidad en lista temporal dentro de Agregar Medico        
         if(this.cbEspecialidades.getSelectedItem()!=null){
+            this.c.agregarEspecialidadMedico(m, (Especialidad)this.cbEspecialidades.getSelectedItem());
+                        
             this.esp.add((Especialidad)this.cbEspecialidades.getSelectedItem());
             this.lstEspecialidades.setListData(esp.toArray());
-            this.cbEspecialidades.removeItem((Especialidad)this.cbEspecialidades.getSelectedItem());        
+            this.cbEspecialidades.removeItem((Especialidad)this.cbEspecialidades.getSelectedItem());
+            //this.esNuevas.add((Especialidad)this.cbEspecialidades.getSelectedItem()); //Se agrega en otra lista solo las especialidades que aun no estaban
         }else{
             this.btnAdd.setEnabled(false);
         }
@@ -303,10 +308,12 @@ public class VentanaModifMedico extends javax.swing.JFrame {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // Elimina Especialidad en lista temporal para agregar medico
             
+            this.c.quitarEspecialidadMedico(m, (Especialidad)this.lstEspecialidades.getSelectedValue());            
             this.cbEspecialidades.setModel(new DefaultComboBoxModel(c.listarEspecialidades().toArray()));
-            List auxlili = new ArrayList();
-            this.lstEspecialidades.setListData(auxlili.toArray());
+            this.lstEspecialidades.setListData(m.getEspecialidades().toArray());
+            
             this.esp.clear();
+            this.esNuevas.clear();
             this.btnAdd.setEnabled(true);
     }//GEN-LAST:event_btnDelActionPerformed
 
@@ -315,28 +322,13 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         if(txtDNI.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty()|| Integer.parseInt((String)cbTiempoTurno.getSelectedItem()) == 0){
                     JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos para agregar un nuevo medico");
         }else{
-            try{
-                //this.lstEspecialidades.getModel();                
-               
-                List<Especialidad> listaTemp = new ArrayList<>();
-                for (int i = 0; i < esV.size(); i++) {
-                    for (int j = 0; j < this.lstEspecialidades.getModel().getSize(); j++) {
-                        if (esV.get(i) != this.lstEspecialidades.getModel().getElementAt(j)){
-                            listaTemp.add((Especialidad)this.lstEspecialidades.getModel().getElementAt(j));
-                        }
-                    }                    
-                }
-                
-                c.modificarMedico(Integer.parseInt(txtDNI.getText()),txtApellido.getText().toUpperCase(), txtNombre.getText().toUpperCase(), (txtTelefono.getText()), Integer.parseInt((String)cbTiempoTurno.getSelectedItem()), listaTemp);
-                this.txtApellido.setText("");
-                this.txtNombre.setText("");
-                this.txtDNI.setText("");
-                this.txtTelefono.setText("");
-                List auxlili = new ArrayList();
-                this.lstEspecialidades.setListData(auxlili.toArray());
+            try{        
+                c.modificarMedico(Integer.parseInt(txtDNI.getText()),txtApellido.getText().toUpperCase(), txtNombre.getText().toUpperCase(), (txtTelefono.getText()), Integer.parseInt((String)cbTiempoTurno.getSelectedItem()), m);
                 this.btnAdd.setEnabled(true);
                 this.cbEspecialidades.setModel(new DefaultComboBoxModel(c.listarEspecialidades().toArray()));
                 
+                this.dispose();
+                p.setVisible(true);
             }catch(Exception e){                
                 Logger.getLogger(VentanaAgregarMedico.class.getName()).log(Level.SEVERE, null, e);
             }

@@ -25,6 +25,31 @@ public class Controlador {
       
     }
     
+    public void agregarEspecialidadMedico(Medico m, Especialidad e) {
+        // como uso un set no necesito controlar por duplicados
+        // recuerden que set no permite duplicados
+        this.persistencia.iniciarTransaccion();
+        m.agregarEspecialidad(e);
+        this.persistencia.modificar(e);
+        this.persistencia.modificar(m);
+        this.persistencia.confirmarTransaccion();
+    }
+
+    public void quitarEspecialidadMedico(Medico m, Especialidad e) {
+        
+        this.persistencia.iniciarTransaccion();
+        try{
+        m.eliminarEspecialidad(e);
+        this.persistencia.modificar(e);
+        this.persistencia.modificar(m);
+        this.persistencia.confirmarTransaccion();
+        System.out.println("Confirma3");
+        }catch(Exception exc){
+            System.out.println(exc.getMessage());
+            this.persistencia.descartarTransaccion();
+        }
+    }
+    
     public void altaMedico(String dni, String apellido, String nombre, String telefono, int tiempoTurno, ListModel esp )
         throws Exception{
         
@@ -62,39 +87,22 @@ public class Controlador {
 
 }
         }
-    public void modificarMedico(int dni, String apellido, String nombre, String telefono, int tTurno,List<Especialidad> esp )
+    public void modificarMedico(int dni, String apellido, String nombre, String telefono, int tTurno,Medico m)
     throws Exception{
         this.persistencia.iniciarTransaccion();
 
         try{
-            Medico m = new Medico(dni);            
             m.setNombre(nombre);
             m.setApellido(apellido);
             m.setTelefono(Integer.parseInt(telefono));
-            m.setTiempoTurno(tTurno);
-            
-            //System.out.println("Aca falla antes forich");
-            m.getEspecialidades().forEach((espe) -> {
-                    m.eliminarEspecialidad(espe);
-                    espe.eliminarMedico(m);
-                });
-            //System.out.println("Aca falla depue forich " + m.getEspecialidades());
+            m.setTiempoTurno(tTurno);     
             
             this.persistencia.modificar(m);
-            //this.persistencia.refrescar(m);
-            //System.out.println("Aca falla modif espe rem");
-            for (int i = 0; i < esp.size(); i++) {  //Asocia todas las especialidades de la lista al medico.                
-                m.agregarEspecialidad((Especialidad)esp.get(i));               
-            }
-            
-            
-            this.persistencia.modificar(m);
-           // System.out.println("Aca falla modif final");
             this.persistencia.confirmarTransaccion();
-        }catch(Exception e){    
+        }catch(Exception e){
             System.out.println(e.getMessage());
             this.persistencia.descartarTransaccion();
-            System.err.println("No se pudo cargar el Medico");
+            System.err.println("No se pudo modificar el Medico");
         }
         
     

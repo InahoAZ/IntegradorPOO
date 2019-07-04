@@ -8,10 +8,12 @@ package Vista;
 import Controlador.Controlador;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import modelo.Cita;
 import modelo.Especialidad;
 import modelo.Medico;
@@ -33,6 +35,8 @@ public class VistaMedico extends javax.swing.JFrame {
         this.setVisible(true);
         this.previo = p ;
         this.setLocationRelativeTo(null);
+        this.lstMedicos.setListData(controlador.listarMedicos().toArray());
+        
     }
 
     /**
@@ -377,9 +381,9 @@ public class VistaMedico extends javax.swing.JFrame {
         
         if(!lstMedicos.isSelectionEmpty()){
                 this.dispose();
-                List<Especialidad> espeViej = ((Medico)this.lstMedicos.getSelectedValue()).getEspecialidades(); //Sirve para comparar las esecialidades viejas con las modificadas
+                Set<Especialidad> espeViej = ((Medico)this.lstMedicos.getSelectedValue()).getEspecialidades(); //Sirve para comparar las esecialidades viejas con las modificadas
                 
-                VentanaModifMedico vm = new VentanaModifMedico(controlador, this, (Medico) this.lstMedicos.getSelectedValue(),espeViej); //Mando tambien el objeto a modificar
+                VentanaModifMedico vm = new VentanaModifMedico(controlador, this, (Medico) this.lstMedicos.getSelectedValue()); //Mando tambien el objeto a modificar
         
         
         }
@@ -388,7 +392,7 @@ public class VistaMedico extends javax.swing.JFrame {
 
     private void btnVerCitasDesdeMedicos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCitasDesdeMedicos
         // boton expandir, pasa a mostrar ventana exandida sobre una cita seleccionada.
-        if(!lstCitas.isSelectionEmpty()){
+        if(!lstCitas.isSelectionEmpty() && ((Cita)this.lstCitas.getSelectedValue()).getElpaciente() != null ){
                 this.dispose();
                 VentanaExpandeCita vec = new VentanaExpandeCita(controlador, this, (Cita)this.lstCitas.getSelectedValue());
         }        
@@ -398,6 +402,7 @@ public class VistaMedico extends javax.swing.JFrame {
         try {
             //Borra un medico seleccionado en la lista
             this.controlador.eliminarMedico((Medico)this.lstMedicos.getSelectedValue());
+            this.lstMedicos.setListData(controlador.listarMedicos().toArray());
         } catch (Exception ex) {
             Logger.getLogger(VistaMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -416,6 +421,11 @@ public class VistaMedico extends javax.swing.JFrame {
         this.lstEspecialidades.setListData(auxMed.getEspecialidades().toArray());
     }//GEN-LAST:event_lstMedicosValueChanged
 
+    public JList getLstMedicos() {
+        return lstMedicos;
+    }
+    
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
