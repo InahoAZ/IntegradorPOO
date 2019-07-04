@@ -9,6 +9,7 @@ package Vista;
 import Controlador.Controlador;
 import javax.swing.JFrame;
 import modelo.Cita;
+import modelo.Paciente;
 
 /**
  *
@@ -114,7 +115,12 @@ public class VentanaCrearRegistro extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        c.addRegistro(this.jTextArea1.getText(), this.cita);
+        
+        Paciente auxPaciente = this.cita.getElpaciente();
+        c.finalCita(this.cita, auxPaciente);
+        
+        this.c.finalCita(this.cita,auxPaciente);
+        c.addRegistro(this.jTextArea1.getText(), this.cita);        
         this.dispose();
         p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

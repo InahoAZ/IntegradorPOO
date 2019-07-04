@@ -8,6 +8,7 @@ package Vista;
 import Controlador.Controlador;
 import javax.swing.JFrame;
 import modelo.Paciente;
+import modelo.Registro;
 
 /**
  *
@@ -39,7 +40,7 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
         this.labcodhc.setText(tic);
         this.labdescrphc.setText(paci.getHistoriaC().getDescripcion());
         
-        this.listreg.setListData(paci.getHistoriaC().getRegistro().toArray());
+        this.lstRegistro.setListData(paci.getHistoriaC().getRegistro().toArray());
         
         
         
@@ -70,10 +71,14 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtCodigoRegistro = new javax.swing.JLabel();
+        txtDiagnosticoRegistro = new javax.swing.JLabel();
+        txtMedicoRegistro = new javax.swing.JLabel();
+        txtFechaRegistro = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listreg = new javax.swing.JList();
+        lstRegistro = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +113,14 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
             }
         });
 
+        txtCodigoRegistro.setText("...");
+
+        txtDiagnosticoRegistro.setText("...");
+
+        txtMedicoRegistro.setText("...");
+
+        txtFechaRegistro.setText("...");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -115,33 +128,55 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel4))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtFechaRegistro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMedicoRegistro)
+                            .addComponent(txtDiagnosticoRegistro)
+                            .addComponent(txtCodigoRegistro))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtCodigoRegistro))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(20, 20, 20)
-                .addComponent(jLabel9))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDiagnosticoRegistro))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtMedicoRegistro))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtFechaRegistro))
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
 
         jLabel5.setText("Registros");
 
-        jScrollPane1.setViewportView(listreg);
+        lstRegistro.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstRegistroValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(lstRegistro);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -150,11 +185,9 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(0, 94, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,6 +267,14 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void lstRegistroValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstRegistroValueChanged
+        // TODO add your handling code here:
+        this.txtCodigoRegistro.setText(Integer.toString(((Registro)this.lstRegistro.getSelectedValue()).getCod()));
+        this.txtDiagnosticoRegistro.setText(((Registro)this.lstRegistro.getSelectedValue()).getDisgnostico());
+        this.txtFechaRegistro.setText(((Registro)this.lstRegistro.getSelectedValue()).getFechaLinda());
+        //this.txtMedicoRegistro.setText(((Registro)(this.lstRegistro.getSelectedValue())));
+    }//GEN-LAST:event_lstRegistroValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +298,10 @@ public class VentanaHistoriaClinica extends javax.swing.JFrame {
     private javax.swing.JLabel labdescrphc;
     private javax.swing.JLabel labdni;
     private javax.swing.JLabel labnombre;
-    private javax.swing.JList listreg;
+    private javax.swing.JList lstRegistro;
+    private javax.swing.JLabel txtCodigoRegistro;
+    private javax.swing.JLabel txtDiagnosticoRegistro;
+    private javax.swing.JLabel txtFechaRegistro;
+    private javax.swing.JLabel txtMedicoRegistro;
     // End of variables declaration//GEN-END:variables
 }

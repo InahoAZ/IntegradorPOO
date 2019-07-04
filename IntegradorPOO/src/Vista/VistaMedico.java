@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import modelo.Cita;
 import modelo.Especialidad;
 import modelo.Medico;
@@ -392,10 +393,14 @@ public class VistaMedico extends javax.swing.JFrame {
 
     private void btnVerCitasDesdeMedicos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCitasDesdeMedicos
         // boton expandir, pasa a mostrar ventana exandida sobre una cita seleccionada.
-        if(!lstCitas.isSelectionEmpty() && ((Cita)this.lstCitas.getSelectedValue()).getElpaciente() != null ){
+        if(!lstCitas.isSelectionEmpty() && ((Cita)this.lstCitas.getSelectedValue()).getElpaciente() != null && !(((Cita)this.lstCitas.getSelectedValue()).isAsistido())){
+                System.out.println(((Cita)this.lstCitas.getSelectedValue()).isAsistido());
                 this.dispose();
                 VentanaExpandeCita vec = new VentanaExpandeCita(controlador, this, (Cita)this.lstCitas.getSelectedValue());
-        }        
+        }else{
+            System.out.println(((Cita)this.lstCitas.getSelectedValue()).isAsistido());
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione una cita valida");
+        }       
     }//GEN-LAST:event_btnVerCitasDesdeMedicos
 
     private void btnDelMed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelMed
