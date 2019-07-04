@@ -6,7 +6,13 @@
 package Vista;
 
 import Controlador.Controlador;
+import java.util.List;
 import javax.swing.JFrame;
+import modelo.Cita;
+import modelo.HistoriaClinica;
+import modelo.Medico;
+import modelo.Paciente;
+import modelo.Registro;
 
 /**
  *
@@ -19,12 +25,25 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
      */
     private final Controlador c;
     private final JFrame p;
+    private final Cita cit;
     
-    public VentanaExpandeCita(Controlador c, JFrame p) {
+    public VentanaExpandeCita(Controlador c, JFrame p, Cita cit) {
         initComponents();
         
         this.c =c;
         this.p =p;
+        this.cit = cit;
+        Paciente auxPaciente = cit.getElpaciente();
+        HistoriaClinica hcPaciente = auxPaciente.getHistoriaC();
+        List<Registro> regHcPaciente = hcPaciente.getRegistro();
+        this.txtApellidoPaciente.setText(auxPaciente.getApellido());
+        this.txtNombrePaciente.setText(auxPaciente.getNombre());
+        this.txtDniPaciente.setText(Integer.toString(auxPaciente.getDni()));
+        this.txtFnacPaciente.setText(auxPaciente.getFnac().toString());
+        this.txtCodigoHC.setText(Integer.toString(hcPaciente.getCodHistoria()));
+        this.txtDescripHC.setText(hcPaciente.getDescripcion());
+        
+        
 
         this.setVisible(true);
     }
@@ -41,9 +60,9 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnAddReg = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        lstRegistro = new javax.swing.JList();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -51,9 +70,9 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        txtCodigoRegistro = new javax.swing.JLabel();
+        txtFechaRegistro = new javax.swing.JLabel();
+        txtDiagnosticoRegistro = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -61,17 +80,17 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        txtDniPaciente = new javax.swing.JLabel();
+        txtApellidoPaciente = new javax.swing.JLabel();
+        txtNombrePaciente = new javax.swing.JLabel();
+        txtTelefonoPaciente = new javax.swing.JLabel();
+        txtFnacPaciente = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
+        txtCodigoHC = new javax.swing.JLabel();
+        txtDescripHC = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
@@ -90,14 +109,14 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Ventana informacion sobre Cita");
 
-        jButton1.setText("agregar registro");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddReg.setText("agregar registro");
+        btnAddReg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddRegActionPerformed(evt);
             }
         });
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lstRegistro);
 
         jLabel3.setText("Registros");
 
@@ -105,7 +124,7 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAddReg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel3)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
@@ -117,7 +136,7 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnAddReg)
                 .addContainerGap())
         );
 
@@ -132,11 +151,11 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel23.setText("Diagnostico:");
 
-        jLabel26.setText("--------");
+        txtCodigoRegistro.setText("--------");
 
-        jLabel27.setText("--------");
+        txtFechaRegistro.setText("--------");
 
-        jLabel28.setText("--------");
+        txtDiagnosticoRegistro.setText("--------");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -150,9 +169,9 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
                     .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel28))
+                    .addComponent(txtCodigoRegistro)
+                    .addComponent(txtFechaRegistro)
+                    .addComponent(txtDiagnosticoRegistro))
                 .addGap(25, 25, 25))
         );
         jPanel5Layout.setVerticalGroup(
@@ -161,15 +180,15 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jLabel26))
+                    .addComponent(txtCodigoRegistro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jLabel27))
+                    .addComponent(txtFechaRegistro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(jLabel28))
+                    .addComponent(txtDiagnosticoRegistro))
                 .addGap(0, 82, Short.MAX_VALUE))
         );
 
@@ -217,15 +236,15 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Fecha Nacimiento:");
 
-        jLabel11.setText("--------");
+        txtDniPaciente.setText("--------");
 
-        jLabel12.setText("--------");
+        txtApellidoPaciente.setText("--------");
 
-        jLabel13.setText("--------");
+        txtNombrePaciente.setText("--------");
 
-        jLabel14.setText("--------");
+        txtTelefonoPaciente.setText("--------");
 
-        jLabel15.setText("--------");
+        txtFnacPaciente.setText("--------");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -234,20 +253,24 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
-                .addGap(25, 25, 25))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDniPaciente)
+                            .addComponent(txtApellidoPaciente)
+                            .addComponent(txtNombrePaciente)
+                            .addComponent(txtTelefonoPaciente)
+                            .addComponent(txtFnacPaciente))
+                        .addGap(25, 25, 25))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,23 +279,23 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel11))
+                    .addComponent(txtDniPaciente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel12))
+                    .addComponent(txtApellidoPaciente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel13))
+                    .addComponent(txtNombrePaciente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel14))
+                    .addComponent(txtTelefonoPaciente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel15))
+                    .addComponent(txtFnacPaciente))
                 .addGap(0, 30, Short.MAX_VALUE))
         );
 
@@ -284,10 +307,10 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("Descripcion:");
 
-        jLabel18.setText("----------");
+        txtCodigoHC.setText("----------");
 
-        jLabel19.setText("-------");
-        jLabel19.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        txtDescripHC.setText("-------");
+        txtDescripHC.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -296,7 +319,7 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDescripHC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
@@ -305,7 +328,7 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(jLabel18)
+                        .addComponent(txtCodigoHC)
                         .addGap(56, 56, 56))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -316,11 +339,11 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jLabel18))
+                    .addComponent(txtCodigoHC))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtDescripHC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -385,11 +408,11 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRegActionPerformed
         // boton agregar registro, se abre ventana para la carga de un nuevo registro
         this.dispose();
         VentanaCrearRegistro newReg = new VentanaCrearRegistro(c, this);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAddRegActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,27 +420,17 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAddReg;
     private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -425,12 +438,22 @@ public class VentanaExpandeCita extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList lstRegistro;
+    private javax.swing.JLabel txtApellidoPaciente;
+    private javax.swing.JLabel txtCodigoHC;
+    private javax.swing.JLabel txtCodigoRegistro;
+    private javax.swing.JLabel txtDescripHC;
+    private javax.swing.JLabel txtDiagnosticoRegistro;
+    private javax.swing.JLabel txtDniPaciente;
+    private javax.swing.JLabel txtFechaRegistro;
+    private javax.swing.JLabel txtFnacPaciente;
+    private javax.swing.JLabel txtNombrePaciente;
+    private javax.swing.JLabel txtTelefonoPaciente;
     // End of variables declaration//GEN-END:variables
 }

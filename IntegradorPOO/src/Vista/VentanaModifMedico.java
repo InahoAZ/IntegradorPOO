@@ -6,9 +6,14 @@
 package Vista;
 
 import Controlador.Controlador;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import modelo.Especialidad;
 import modelo.Medico;
 
 /**
@@ -23,21 +28,24 @@ public class VentanaModifMedico extends javax.swing.JFrame {
     private final Controlador c;
     private final JFrame p;
     private final Medico m;
+    private List<Especialidad> esp = new ArrayList<>();
+    private final List<Especialidad> esV;
     
-    
-    public VentanaModifMedico(Controlador c, JFrame p, Medico m) {
+    public VentanaModifMedico(Controlador c, JFrame p, Medico m, List<Especialidad> esV) {
         initComponents();
         this.c =c;
         this.p =p;
         this.m = m;
+        this.esV = esV;
 
-        this.txtDni.setText(Integer.toString(m.getDni()));
+        this.txtDNI.setText(Integer.toString(m.getDni()));
         this.txtApellido.setText(m.getApellido());
         this.txtNombre.setText(m.getNombre());
         this.txtTelefono.setText(Integer.toString(m.getTelefono()));
-        //this.txtMatricula.setText(Long.toString(this.m.getMatricula()));
-        this.spnTiempoTurno.setValue(m.getTiempoTurno());
-        
+        //this.txtMatricula.setText(Long.toString(this.m.getMatricula()));        
+        this.cbEspecialidades.setModel(new DefaultComboBoxModel(c.listarEspecialidades().toArray()));
+        this.lstEspecialidades.setListData(m.getEspecialidades().toArray());
+        this.esp = (m.getEspecialidades());
              
         
         this.setVisible(true);
@@ -55,14 +63,14 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstEspecialidades = new javax.swing.JList();
         jLabel8 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtDni = new javax.swing.JTextField();
+        txtDNI = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
@@ -70,9 +78,9 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        spnTiempoTurno = new javax.swing.JSpinner();
         jLabel7 = new javax.swing.JLabel();
-        cdEspecialidades = new javax.swing.JComboBox<>();
+        cbTiempoTurno = new javax.swing.JComboBox();
+        cbEspecialidades = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,24 +88,29 @@ public class VentanaModifMedico extends javax.swing.JFrame {
 
         jLabel8.setText("Especialidades");
 
-        jButton3.setText("+");
-        jButton3.setActionCommand("btnAddEsp");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("+");
+        btnAdd.setActionCommand("btnAddEsp");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        jButton4.setText("-");
-        jButton4.setActionCommand("btnDelEsp");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnDel.setText("-");
+        btnDel.setActionCommand("btnDelEsp");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnDelActionPerformed(evt);
             }
         });
 
         jButton2.setText("Modificar");
         jButton2.setActionCommand("btnModificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Cancelar");
         jButton1.setActionCommand("btnCancelar");
@@ -131,10 +144,10 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setText("Modificar Medico");
 
-        txtDni.setEnabled(false);
-        txtDni.addActionListener(new java.awt.event.ActionListener() {
+        txtDNI.setEnabled(false);
+        txtDNI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDniActionPerformed(evt);
+                txtDNIActionPerformed(evt);
             }
         });
 
@@ -147,6 +160,8 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         jLabel6.setText("Telefono");
 
         jLabel7.setText("Tiempo Turno");
+
+        cbTiempoTurno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "10", "15", "20", "30", "45", "55" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -162,7 +177,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -174,7 +189,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(spnTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cbTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -182,7 +197,7 @@ public class VentanaModifMedico extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -198,9 +213,9 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spnTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel7)
+                    .addComponent(cbTiempoTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,12 +235,12 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(cdEspecialidades, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbEspecialidades, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton3)
-                                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(btnAdd)
+                                            .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -242,15 +257,15 @@ public class VentanaModifMedico extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cdEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbEspecialidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3)
+                                .addComponent(btnAdd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4)
+                                .addComponent(btnDel)
                                 .addGap(34, 34, 34))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(34, 34, 34)
@@ -269,17 +284,63 @@ public class VentanaModifMedico extends javax.swing.JFrame {
         p.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
+    private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDniActionPerformed
+    }//GEN-LAST:event_txtDNIActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // Agregar Especialidad en lista temporal dentro de Agregar Medico        
+        if(this.cbEspecialidades.getSelectedItem()!=null){
+            this.esp.add((Especialidad)this.cbEspecialidades.getSelectedItem());
+            this.lstEspecialidades.setListData(esp.toArray());
+            this.cbEspecialidades.removeItem((Especialidad)this.cbEspecialidades.getSelectedItem());        
+        }else{
+            this.btnAdd.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // Elimina Especialidad en lista temporal para agregar medico
+            
+            this.cbEspecialidades.setModel(new DefaultComboBoxModel(c.listarEspecialidades().toArray()));
+            List auxlili = new ArrayList();
+            this.lstEspecialidades.setListData(auxlili.toArray());
+            this.esp.clear();
+            this.btnAdd.setEnabled(true);
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Modifica un nuevo medico a la bd        
+        if(txtDNI.getText().isEmpty() || txtApellido.getText().isEmpty() || txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty()|| Integer.parseInt((String)cbTiempoTurno.getSelectedItem()) == 0){
+                    JOptionPane.showMessageDialog(null, "Debe rellenar todos los campos para agregar un nuevo medico");
+        }else{
+            try{
+                //this.lstEspecialidades.getModel();                
+               
+                List<Especialidad> listaTemp = new ArrayList<>();
+                for (int i = 0; i < esV.size(); i++) {
+                    for (int j = 0; j < this.lstEspecialidades.getModel().getSize(); j++) {
+                        if (esV.get(i) != this.lstEspecialidades.getModel().getElementAt(j)){
+                            listaTemp.add((Especialidad)this.lstEspecialidades.getModel().getElementAt(j));
+                        }
+                    }                    
+                }
+                
+                c.modificarMedico(Integer.parseInt(txtDNI.getText()),txtApellido.getText().toUpperCase(), txtNombre.getText().toUpperCase(), (txtTelefono.getText()), Integer.parseInt((String)cbTiempoTurno.getSelectedItem()), listaTemp);
+                this.txtApellido.setText("");
+                this.txtNombre.setText("");
+                this.txtDNI.setText("");
+                this.txtTelefono.setText("");
+                List auxlili = new ArrayList();
+                this.lstEspecialidades.setListData(auxlili.toArray());
+                this.btnAdd.setEnabled(true);
+                this.cbEspecialidades.setModel(new DefaultComboBoxModel(c.listarEspecialidades().toArray()));
+                
+            }catch(Exception e){                
+                Logger.getLogger(VentanaAgregarMedico.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,11 +348,12 @@ public class VentanaModifMedico extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cdEspecialidades;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JComboBox<String> cbEspecialidades;
+    private javax.swing.JComboBox cbTiempoTurno;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -303,9 +365,8 @@ public class VentanaModifMedico extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList lstEspecialidades;
-    private javax.swing.JSpinner spnTiempoTurno;
     private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtDni;
+    private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
