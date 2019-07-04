@@ -245,6 +245,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
         labeldescripcion.setText("--------");
 
         jButton6.setText("Control Citas");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -463,6 +468,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
         );
 
         jButton10.setText("Recordatorios a Realizar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -756,6 +766,26 @@ public class VentanaPacientes extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_listamedicespecialValueChanged
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // boton abrir recordatorios que hay que realizar
+         this.dispose();
+         
+         VentanaRecordatorios rc1 = new VentanaRecordatorios(c,this);
+        
+        
+        
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // boton ver control de citas de un  paciente
+        
+         if(!listaPacientes.isSelectionEmpty()){
+                this.dispose();
+                 Paciente paci1 = (Paciente) listaPacientes.getSelectedValue();
+                 VentanaCitasReg hc1 = new VentanaCitasReg(c,this,paci1);
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
      
    
    
