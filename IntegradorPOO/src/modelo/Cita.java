@@ -35,11 +35,22 @@ public class Cita {
     
     private boolean estado;
     
+    private boolean recordado;
+    
     
     
     public Cita() {
         this.asistido = false;
+        this.recordado = false;
         this.estado = true;
+    }
+
+    public boolean isRecordado() {
+        return recordado;
+    }
+
+    public void setRecordado(boolean recordado) {
+        this.recordado = recordado;
     }
 
     public Cita(Date fecha,  Paciente elpaciente, Medico medic) {
@@ -48,6 +59,7 @@ public class Cita {
         this.elpaciente = elpaciente;
         this.estado = true;
         this.medic = medic;
+        this.recordado = false;
     }
 
     public boolean isEstado() {
