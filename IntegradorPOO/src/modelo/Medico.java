@@ -58,7 +58,21 @@ public class Medico extends Persona{
         this.especialidades = new ArrayList<>();
         
     }
-
+   public List  getCitasHoy(int dia){
+    
+        List lista = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita c1 = citas.get(i);
+            if(c1.getFecha().getDate() == dia){
+            
+                lista.add(c1);
+            
+            }
+        }
+        
+        return lista;
+    
+    }
     public boolean isActivo() {
         return activo;
     }

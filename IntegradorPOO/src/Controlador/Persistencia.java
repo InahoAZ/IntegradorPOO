@@ -68,14 +68,7 @@ public class Persistencia {
     }
     
     
-    public <T extends Object> List<T> buscarTodosCitas(int dia,int dni) {
-      
-         List<Object[]> gList = new ArrayList<>();
-         Query query = em.createNativeQuery("select codcita, asistido, estado, fecha, hora, medic_dni, elpaciente_dni from citas where medic_dni =  "+dni+ "  and extract(day from fecha) =  "+dia);
-         gList.addAll(query.getResultList());
-         return (List<T>) gList;        
-        
-    }
+    
 
    public int obtenerHoraVieja(int i,int dni,int dia) {
         
@@ -95,14 +88,7 @@ public class Persistencia {
         
     }
    
-   public <T extends Object> List<T> listarMedicosActivos() {
-      
-         List<Object[]> gList = new ArrayList<>();
-         Query query = em.createNativeQuery("select m.dni, p.apellido, p.nombre from personas p, medico m where m.activo = true AND p.dni = m.dni");
-         gList.addAll(query.getResultList());
-         return (List<T>) gList;        
-        
-    }
+  
 
   
 

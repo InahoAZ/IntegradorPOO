@@ -411,7 +411,10 @@ public class Controlador {
 
     private boolean isHoyCita(int date, Medico m1) {
        
-        List listado = persistencia.buscarTodosCitas(date,m1.getDni());
+        //me retorna la lisata de citas para hoy de juancho
+        
+        //List listado = persistencia.buscarTodosCitas(date,m1.getDni());
+        List listado = m1.getCitasHoy(date);
         
         return !listado.isEmpty();
         
