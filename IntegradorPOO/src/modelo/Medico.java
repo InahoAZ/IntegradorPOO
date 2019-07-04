@@ -152,6 +152,57 @@ public class Medico extends Persona{
         return lista;
     }
 
+    public int getHoraMin(int dia) {
+        
+       
+        List citashoy = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita c1 = citas.get(i);
+            if(c1.getFecha().getDate() == dia){
+                    citashoy.add(c1);
+            }
+            
+            
+        }
+        Cita c1 = (Cita) citashoy.get(0);
+        int min = c1.getHora();
+        for (int i = 0; i < citashoy.size(); i++) {
+             Cita caux = (Cita) citashoy.get(i);
+            if(caux.getHora()<min){
+                    
+                    min = caux.getHora();
+            
+            }
+        }
+        return min;
+    }
+
+    public int getHoraMax(int dia) {
+        
+        List citashoy = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita c1 = citas.get(i);
+            if(c1.getFecha().getDate() == dia){
+                    citashoy.add(c1);
+            }
+            
+            
+        }
+        Cita c1 = (Cita) citashoy.get(0);
+        int max = c1.getHora();
+        for (int i = 0; i < citashoy.size(); i++) {
+             Cita caux = (Cita) citashoy.get(i);
+            if(caux.getHora()>max){
+                    
+                    max = caux.getHora();
+            
+            }
+        }
+        return max;
+        
+        
+    }
+
  
             
     

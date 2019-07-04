@@ -70,24 +70,6 @@ public class Persistencia {
     
     
 
-   public int obtenerHoraVieja(int i,int dni,int dia) {
-        
-        int fecha;
-        Query query;
-        if(i==1){
-        //obtiene fecha mas peque
-                   query = em.createNativeQuery("select min(hora) from citas where medic_dni = "+dni+" and extract(day from fecha) =  "+dia);
-        }else{
-         //obtiene fecha mas grandotota
-                   query = em.createNativeQuery("select max(hora) from citas where medic_dni = "+dni+" and extract(day from fecha) =  "+dia);
-        }
-        
-        fecha = Integer.parseInt(query.getResultList().get(0).toString());
-         
-        return fecha;
-        
-    }
-   
   
 
   

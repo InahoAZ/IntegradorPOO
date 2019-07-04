@@ -311,8 +311,8 @@ public class Controlador {
                                       
                                       if(hoyTieneCitas ){
                                                  //obtener hora vieja (inicio y final)
-                                                 horaInicioViejo =  horaMedicVieja(1,m1.getDni(),diaHoy.getDate());//pasar el dia de hoy
-                                                 horaFinalViejo =  horaMedicVieja(2,m1.getDni(),diaHoy.getDate());//pasar el dia de hoy
+                                                 horaInicioViejo =  horaMedicVieja(1,m1,diaHoy.getDate());//pasar el dia de hoy
+                                                 horaFinalViejo =  horaMedicVieja(2,m1,diaHoy.getDate());//pasar el dia de hoy
                                       }
                                       
                                      while(auxHoraDiaInicio<fechaFinalDia ){
@@ -417,8 +417,17 @@ public class Controlador {
         
     }
 
-    private int horaMedicVieja(int i,int dni,int dia) {
-        return persistencia.obtenerHoraVieja(i,dni,dia);
+    private int horaMedicVieja(int i,Medico mni,int dia) {
+      
+        int hora = 0;
+        if(i==1){
+            hora = mni.getHoraMin(dia);
+            return hora;
+            
+        }else{
+            hora = mni.getHoraMax(dia);
+            return hora;
+        }
     }
 
     public List listarCitas() {
