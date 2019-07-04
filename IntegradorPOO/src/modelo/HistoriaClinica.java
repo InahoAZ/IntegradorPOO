@@ -50,6 +50,10 @@ public class HistoriaClinica {
         return descripcion;
     }
 
+    public int getCodHistoria() {
+        return codHistoria;
+    }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
