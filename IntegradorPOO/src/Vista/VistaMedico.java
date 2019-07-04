@@ -6,10 +6,14 @@
 package Vista;
 
 import Controlador.Controlador;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import modelo.Cita;
+import modelo.Especialidad;
 import modelo.Medico;
 import modelo.Persona;
 
@@ -60,7 +64,7 @@ public class VistaMedico extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        citasxMedic = new javax.swing.JList();
+        lstCitas = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -181,7 +185,7 @@ public class VistaMedico extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane3.setViewportView(citasxMedic);
+        jScrollPane3.setViewportView(lstCitas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -372,7 +376,9 @@ public class VistaMedico extends javax.swing.JFrame {
         
         if(!lstMedicos.isSelectionEmpty()){
                 this.dispose();
-                VentanaModifMedico vm = new VentanaModifMedico(controlador, this, (Medico) this.lstMedicos.getSelectedValue()); //Mando tambien el objeto a modificar
+                List<Especialidad> espeViej = ((Medico)this.lstMedicos.getSelectedValue()).getEspecialidades(); //Sirve para comparar las esecialidades viejas con las modificadas
+                
+                VentanaModifMedico vm = new VentanaModifMedico(controlador, this, (Medico) this.lstMedicos.getSelectedValue(),espeViej); //Mando tambien el objeto a modificar
         
         
         }
@@ -381,9 +387,9 @@ public class VistaMedico extends javax.swing.JFrame {
 
     private void btnVerCitasDesdeMedicos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerCitasDesdeMedicos
         // boton expandir, pasa a mostrar ventana exandida sobre una cita seleccionada.
-        if(!citasxMedic.isSelectionEmpty()){
+        if(!lstCitas.isSelectionEmpty()){
                 this.dispose();
-                 VentanaExpandeCita vec = new VentanaExpandeCita(controlador, this);
+                VentanaExpandeCita vec = new VentanaExpandeCita(controlador, this, (Cita)this.lstCitas.getSelectedValue());
         }
         
     }//GEN-LAST:event_btnVerCitasDesdeMedicos
@@ -400,6 +406,8 @@ public class VistaMedico extends javax.swing.JFrame {
     private void lstMedicosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMedicosValueChanged
         // Cuando se selecciona un medico de la lista muestra sus datos y da pie a modificaciones
         Medico auxMed = (Medico)this.lstMedicos.getSelectedValue();
+        List<Cita> citas = auxMed.getCitas();
+        this.lstCitas.setListData(citas.toArray());
         this.txtApellido.setText(auxMed.getApellido());
         this.txtNombre.setText(auxMed.getNombre());
         this.txtTelefono.setText(Integer.toString(auxMed.getTelefono()));
@@ -411,7 +419,6 @@ public class VistaMedico extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList citasxMedic;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -435,6 +442,7 @@ public class VistaMedico extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList lstCitas;
     private javax.swing.JList lstEspecialidades;
     private javax.swing.JList lstMedicos;
     private javax.swing.JLabel txtApellido;

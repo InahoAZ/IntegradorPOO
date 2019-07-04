@@ -34,9 +34,8 @@ public class Controlador {
             int telfInt = Integer.parseInt(telefono);            
             Medico auxMed = new Medico(dniInt);            
             System.out.println(dniInt);
-            for (int i = 0; i < esp.getSize(); i++) {  //Asocia todas las especialidades de la lista al medico.     
-                
-                auxMed.agregarEspecialidad((Especialidad)esp.getElementAt(i));
+            for (int i = 0; i < esp.getSize(); i++) {  //Asocia todas las especialidades de la lista al medico.                
+                auxMed.agregarEspecialidad((Especialidad)esp.getElementAt(i));                
             }
             //Especialidad esss = (Especialidad)esp.getElementAt(0);
             //System.out.println(esss.getClass());
@@ -62,7 +61,7 @@ public class Controlador {
 
 }
         }
-    public void modificarMedico(int dni, String apellido, String nombre, String telefono, int tTurno)
+    public void modificarMedico(int dni, String apellido, String nombre, String telefono, int tTurno,List<Especialidad> esp )
     throws Exception{
         this.persistencia.iniciarTransaccion();
 
@@ -71,10 +70,28 @@ public class Controlador {
             m.setNombre(nombre);
             m.setApellido(apellido);
             m.setTelefono(Integer.parseInt(telefono));
-            m.setTiempoTurno(tTurno);            
+            m.setTiempoTurno(tTurno);
+            
+            //System.out.println("Aca falla antes forich");
+            m.getEspecialidades().forEach((espe) -> {
+                    m.eliminarEspecialidad(espe);
+                    espe.eliminarMedico(m);
+                });
+            //System.out.println("Aca falla depue forich " + m.getEspecialidades());
+            
             this.persistencia.modificar(m);
+            //this.persistencia.refrescar(m);
+            //System.out.println("Aca falla modif espe rem");
+            for (int i = 0; i < esp.size(); i++) {  //Asocia todas las especialidades de la lista al medico.                
+                m.agregarEspecialidad((Especialidad)esp.get(i));               
+            }
+            
+            
+            this.persistencia.modificar(m);
+           // System.out.println("Aca falla modif final");
             this.persistencia.confirmarTransaccion();
-        }catch(Exception e){        
+        }catch(Exception e){    
+            System.out.println(e.getMessage());
             this.persistencia.descartarTransaccion();
             System.err.println("No se pudo cargar el Medico");
         }
@@ -182,10 +199,25 @@ public class Controlador {
     throws Exception{
         this.persistencia.iniciarTransaccion();
         try{
-            Medico auxMed = this.persistencia.buscar(Medico.class, m.getDni());
+            /*Medico auxMed = this.persistencia.buscar(Medico.class, m.getDni());
             auxMed.setActivo(false);
-            this.persistencia.modificar(m);
-            this.persistencia.confirmarTransaccion();
+            this.persistencia.modificar(m);*/
+            if ((m.getCitas().isEmpty())) {
+                this.persistencia.eliminar(m);
+                this.persistencia.confirmarTransaccion();
+            }else if(m.getEspecialidades().isEmpty()){
+                m.getEspecialidades().forEach((espe) -> {
+                    m.eliminarEspecialidad(espe);
+                    this.persistencia.modificar(m);
+                    this.persistencia.eliminar(m);
+                    this.persistencia.confirmarTransaccion();
+                });
+                
+            }else{
+                System.out.println("Por favor reasigne las citas del medico a eliminar");
+            }
+            
+            
         
         }catch(Exception e){
             this.persistencia.descartarTransaccion();

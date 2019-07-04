@@ -344,7 +344,7 @@ public class VentanaAgregarMedico extends javax.swing.JFrame {
                 this.lstEspecialidades.setListData(auxlili.toArray());
                 this.btnAdd.setEnabled(true);
                 this.cbEspecialidades.setModel(new DefaultComboBoxModel(controlador.listarEspecialidades().toArray()));
-                
+                this.esp.clear();
             }catch(Exception e){                
                 Logger.getLogger(VentanaAgregarMedico.class.getName()).log(Level.SEVERE, null, e);
             }

@@ -50,6 +50,14 @@ public class HistoriaClinica {
         return descripcion;
     }
 
+    public int getCodHistoria() {
+        return codHistoria;
+    }
+
+    public List<Registro> getRegistros() {
+        return registros;
+    }
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
