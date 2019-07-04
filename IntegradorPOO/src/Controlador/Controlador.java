@@ -682,30 +682,18 @@ public class Controlador {
     public void recordarCita(Cita cc) {
         
             this.persistencia.iniciarTransaccion();
-        try {
-            
-            
-            
-             cc.setRecordado(true);
-       
-     
+        try {   
+            cc.setRecordado(true);
             this.persistencia.modificar(cc);
-
-            
             this.persistencia.confirmarTransaccion();
         } catch (Exception e) {
             this.persistencia.descartarTransaccion();
             System.err.println("No se pudo recordar la cita");
         }
-        
-        
-        
-    }
-
+        }
     
+    public void finalCita(Cita cita, Paciente auxPaciente) {
+            cita.setAsistido(true);
+            auxPaciente.setMiCita(null);
     }
-
-    
-
-        
 }
