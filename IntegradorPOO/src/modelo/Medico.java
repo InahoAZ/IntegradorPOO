@@ -24,7 +24,7 @@ public class Medico extends Persona{
     private static int horasLaboral; // Parametro de las horas trabajadas para calcular citas disponibles    
     
     @ManyToMany (mappedBy = "medicos")    
-    private List<Especialidad> especialidades;
+    private Set<Especialidad> especialidades;
     
     @OneToMany (mappedBy = "medic")
     private List<Cita> citas;
@@ -39,15 +39,14 @@ public class Medico extends Persona{
     public Medico() {
         this.registros = new ArrayList<>();
         this.citas = new ArrayList<>();
-        this.especialidades = new ArrayList<>();
+        this.especialidades = new HashSet();
     }
 
-    public Medico(long matricula, int tiempoTurno, int dni, String nombre, String apellido, int telefono) {
+    public Medico(int tiempoTurno, int dni, String nombre, String apellido, int telefono) {
         super(dni, nombre, apellido, telefono);
         this.registros = new ArrayList<>();
         this.citas = new ArrayList<>();
-        this.especialidades = new ArrayList<>();
-        this.matricula = matricula;
+        this.especialidades = new HashSet();
         this.tiempoTurno = tiempoTurno;
     }
 
@@ -55,7 +54,7 @@ public class Medico extends Persona{
         super(dniInt);
         this.registros = new ArrayList<>();
         this.citas = new ArrayList<>();
-        this.especialidades = new ArrayList<>();
+        this.especialidades = new HashSet();
         
     }
    public List  getCitasHoy(int dia){
@@ -89,7 +88,7 @@ public class Medico extends Persona{
         this.tiempoTurno = tiempoTurno;
     }
 
-    public List<Especialidad> getEspecialidades() {
+    public Set<Especialidad> getEspecialidades() {
         return especialidades;
     }
 
@@ -127,6 +126,7 @@ public class Medico extends Persona{
     
     public void eliminarEspecialidad(Especialidad es){
         this.especialidades.remove(es);
+        es.eliminarMedico(this);
         
     }
     
