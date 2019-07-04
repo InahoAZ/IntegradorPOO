@@ -579,12 +579,57 @@ public class Controlador {
 
     public List listarCitasAsistidas(Paciente paci) {
         List citas = persistencia.buscarTodos(Cita.class);
+        List citasP = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita c1 = (Cita) citas.get(i);
+            if(c1.getElpaciente() == paci){
+                citasP.add(c1);
+            
+            }
+            
+            
+            
+        }
         
-        
+        List asistido = new ArrayList<>();
+        for (int i = 0; i < citasP.size(); i++) {
+            Cita cc1 = (Cita) citas.get(i);
+            if(cc1.isAsistido()){
+            
+                asistido.add(cc1);
+            
+            }
+        }
+        return asistido;
     }
 
     public List listarCitasFaltas(Paciente paci) {
       
+        
+        
+        List citas = persistencia.buscarTodos(Cita.class);
+        List citasP = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita c1 = (Cita) citas.get(i);
+            if(c1.getElpaciente() == paci){
+                citasP.add(c1);
+            
+            }
+            
+            
+            
+        }
+        
+        List faltadas = new ArrayList<>();
+        for (int i = 0; i < citasP.size(); i++) {
+            Cita cc1 = (Cita) citas.get(i);
+            if(!cc1.isAsistido()){
+            
+                faltadas.add(cc1);
+            
+            }
+        }
+        return faltadas;
         
         
     }
