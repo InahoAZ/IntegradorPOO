@@ -31,6 +31,11 @@ public class VentanaRecordatorios extends javax.swing.JFrame {
         
         
         
+        this.listaPendientes.setListData(c.listarCitasNoRecor().toArray());
+        this.listaRealizados.setListData(c.listarCitasSiRecor().toArray());
+        
+        
+        
     }
 
     /**

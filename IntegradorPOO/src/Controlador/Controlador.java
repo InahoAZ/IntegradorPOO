@@ -623,13 +623,50 @@ public class Controlador {
         List faltadas = new ArrayList<>();
         for (int i = 0; i < citasP.size(); i++) {
             Cita cc1 = (Cita) citas.get(i);
-            if(!cc1.isAsistido()){
+            if(!cc1.isAsistido() && cc1.getElpaciente() == paci){
             
                 faltadas.add(cc1);
+                System.out.println(cc1);
+                
             
             }
         }
         return faltadas;
+        
+        
+    }
+
+    public List listarCitasNoRecor() {
+        
+        List citas = persistencia.buscarTodos(Cita.class);
+        List citasRecor = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita cc1 = (Cita) citas.get(i);
+            if(!cc1.isRecordado()){
+                    
+                    citasRecor.add(cc1);
+            
+            }
+        }
+        
+        return citasRecor;
+    }
+
+    public List listarCitasSiRecor() {
+        
+        
+         List citas = persistencia.buscarTodos(Cita.class);
+        List citasRecor = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita cc1 = (Cita) citas.get(i);
+            if(cc1.isRecordado()){
+                    
+                    citasRecor.add(cc1);
+            
+            }
+        }
+        
+        return citasRecor;
         
         
     }
