@@ -391,8 +391,7 @@ public class VistaMedico extends javax.swing.JFrame {
         if(!lstCitas.isSelectionEmpty()){
                 this.dispose();
                 VentanaExpandeCita vec = new VentanaExpandeCita(controlador, this, (Cita)this.lstCitas.getSelectedValue());
-        }
-        
+        }        
     }//GEN-LAST:event_btnVerCitasDesdeMedicos
 
     private void btnDelMed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelMed

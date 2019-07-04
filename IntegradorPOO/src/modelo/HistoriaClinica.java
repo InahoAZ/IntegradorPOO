@@ -78,10 +78,9 @@ public class HistoriaClinica {
     }
 
     
-    public void nuevoRegistro(String diagnostico){        
-        Registro reg = new Registro(diagnostico);        
-        registros.add(reg);
-    
+    public void nuevoRegistro(String diagnostico, Medico m){        
+        Registro reg = new Registro(diagnostico,m, this);        
+        registros.add(reg);    
     }
     
     
