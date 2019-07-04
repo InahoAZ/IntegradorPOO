@@ -498,17 +498,10 @@ public class Controlador {
                 
         this.persistencia.iniciarTransaccion();
         try {
-            
-             
-             
-            
-             
+ 
              cita.setElpaciente(pac);
              pac.setMiCita(cita);
-            
-            
-             
-             
+     
             this.persistencia.modificar(cita);
             this.persistencia.modificar(pac);
             
@@ -517,6 +510,28 @@ public class Controlador {
             this.persistencia.descartarTransaccion();
             System.err.println("No se pudo asignar la cita");
         }
+        
+        
+    }
+
+    public void eliminarCita(Paciente pac) {
+        
+        this.persistencia.iniciarTransaccion();
+        try {
+            Cita cita = pac.getMiCita();
+             cita.setElpaciente(null);
+             pac.setMiCita(null);
+     
+            this.persistencia.modificar(cita);
+            this.persistencia.modificar(pac);
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo descartar la cita");
+        }
+        
+        
         
         
     }

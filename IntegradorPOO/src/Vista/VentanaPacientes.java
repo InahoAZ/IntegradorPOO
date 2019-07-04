@@ -73,7 +73,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         labelcita = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        botondescarte = new javax.swing.JButton();
         jLabel21 = new javax.swing.JLabel();
         labeldescripcion = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -228,16 +228,17 @@ public class VentanaPacientes extends javax.swing.JFrame {
 
         labelcita.setText("--------");
 
-        jButton6.setText("Descartar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        botondescarte.setText("Descartar");
+        botondescarte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                botondescarteActionPerformed(evt);
             }
         });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel21.setText("Direccion:");
 
+        labeldescripcion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labeldescripcion.setText("--------");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -247,9 +248,6 @@ public class VentanaPacientes extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -269,14 +267,18 @@ public class VentanaPacientes extends javax.swing.JFrame {
                                     .addComponent(labelapellido)
                                     .addComponent(labelnombre)
                                     .addComponent(labeltelefono)
-                                    .addComponent(labelfecha)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addComponent(labelfecha))))
+                        .addGap(134, 134, 134))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(botondescarte, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel16))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelcita)))
-                        .addGap(134, 134, 134))))
+                                .addGap(18, 18, 18)
+                                .addComponent(labelcita, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,11 +310,12 @@ public class VentanaPacientes extends javax.swing.JFrame {
                     .addComponent(jLabel21)
                     .addComponent(labeldescripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel16)
-                    .addComponent(labelcita))
-                .addGap(18, 18, 18)
-                .addComponent(jButton6))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(18, 18, 18)
+                        .addComponent(botondescarte))
+                    .addComponent(labelcita, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -530,12 +533,44 @@ public class VentanaPacientes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // ni se quien es este boton
+    private void botondescarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botondescarteActionPerformed
+        // boton descarte, borra cita de paciente y paciente de cita, ademas actualiza vista
+        if(!this.listaPacientes.isSelectionEmpty()){
+                
+                Paciente auxP =  (Paciente) listaPacientes.getSelectedValue();
+                c.eliminarCita(auxP);
+                
+                //deselecciono lista paciente
+                this.listaPacientes.clearSelection();
+                
+                //desabilito boton descarte
+                this.botondescarte.setEnabled(false);
+                
+                
+                //actualizar pagina borrando info.
+                this.muyLimpio();
+        
+        }
         
         
-    }//GEN-LAST:event_jButton6ActionPerformed
+        
+        
+    }//GEN-LAST:event_botondescarteActionPerformed
 
+    
+    public void muyLimpio(){
+        
+        this.labelapellido.setText("--------");
+        
+          this.labelnombre.setText("--------");
+            this.labelcita.setText("--------");
+              this.labeldescripcion.setText("--------");
+                this.labeldni.setText("--------");
+                  this.labelfecha.setText("--------");
+                    this.labeltelefono.setText("--------");
+    
+    }
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // boton asignar
         
@@ -544,6 +579,15 @@ public class VentanaPacientes extends javax.swing.JFrame {
                     
                     Paciente pac = (Paciente) this.listaPacientes.getSelectedValue();
                     c.asignarCita(pac, (Cita) this.listaCitas.getSelectedValue());
+                    //limpiar seleccion y cajas listas
+                    this.listaPacientes.clearSelection();
+                     this.muyLimpio();
+                    
+                    List vacio = new ArrayList<>();
+                    this.listaCitas.setListData(vacio.toArray());
+                    
+                    this.listamedicespecial.setListData(vacio.toArray());
+               //     this.jButton5.setEnabled(false);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -575,18 +619,31 @@ public class VentanaPacientes extends javax.swing.JFrame {
             this.labelfecha.setText(auxP.getFnac().toString());
             this.labeldescripcion.setText(auxP.getDireccion());
             
-          
+          List vacio = new ArrayList<>();
             
             
             if(!(auxP.getMiCita() == null)){
-            //anular la carga de citas
-            
-            //activar boton descarar
+                    //anular la carga de citas
+                    this.listamedicespecial.setEnabled(false);
+                    this.jButton5.setEnabled(false);
+                    this.botondescarte.setEnabled(true);
+                     
+                    this.listaCitas.setListData(vacio.toArray());
+
+
+                    //activar boton descarar
+                    
+                    //mostrar info de cita
+                    
+                     this.labelcita.setText("<html>"+ auxP.getMiCita().toString()+"<html>");
                     
             
             
             }else{
-            
+                    this.listaCitas.setListData(vacio.toArray());
+                 this.listamedicespecial.setEnabled(true);
+                    this.jButton5.setEnabled(true);
+                    this.botondescarte.setEnabled(false);
                 this.labelcita.setText("no hay cita asignada");
                 //anular boton descartar
                 
@@ -675,7 +732,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         // cuando se selecciona un medico segun especialidad
         try{
                     Medico m1 = (Medico) this.listamedicespecial.getSelectedValue();
-                    this.listaCitas.setListData(m1.getCitas().toArray());
+                    this.listaCitas.setListData(m1.getCitasLibres().toArray());
         }
         catch(Exception e){
                     List vacio = new ArrayList<>();
@@ -702,13 +759,13 @@ public class VentanaPacientes extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botondescarte;
     private javax.swing.JComboBox combobo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;

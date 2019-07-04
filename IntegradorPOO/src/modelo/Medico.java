@@ -124,6 +124,20 @@ public class Medico extends Persona{
         
     }
 
+    public List getCitasLibres() {
+        List lista = new ArrayList<>();
+        for (int i = 0; i < citas.size(); i++) {
+            Cita c1 = citas.get(i);
+            if(c1.getElpaciente() == null){
+            
+                lista.add(c1);
+            
+            }
+        }
+        
+        return lista;
+    }
+
  
             
     
