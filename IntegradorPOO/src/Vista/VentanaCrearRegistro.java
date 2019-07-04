@@ -8,6 +8,7 @@ package Vista;
 
 import Controlador.Controlador;
 import javax.swing.JFrame;
+import modelo.Cita;
 
 /**
  *
@@ -21,13 +22,14 @@ public class VentanaCrearRegistro extends javax.swing.JFrame {
     
     private final Controlador c;
     private final JFrame p;
-    
-    public VentanaCrearRegistro(Controlador c, JFrame p) {
+    private final Cita cita;
+    public VentanaCrearRegistro(Controlador c, JFrame p, Cita cita) {
         initComponents();
         
-         this.c =c;
+        this.c =c;
         this.p =p;
-this.setLocationRelativeTo(null);
+        this.cita = cita;
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
@@ -50,6 +52,11 @@ this.setLocationRelativeTo(null);
 
         jButton1.setText("Agregar Nuevo Registro");
         jButton1.setActionCommand("btnNuevoReg");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Diagnostico");
 
@@ -104,6 +111,13 @@ this.setLocationRelativeTo(null);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        c.addRegistro(this.jTextArea1.getText(), this.cita);
+        this.dispose();
+        p.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

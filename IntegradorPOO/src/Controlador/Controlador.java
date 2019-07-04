@@ -10,6 +10,7 @@ import modelo.Especialidad;
 import modelo.HistoriaClinica;
 import modelo.Medico;
 import modelo.Paciente;
+import modelo.Registro;
 
 
 public class Controlador {
@@ -100,6 +101,22 @@ public class Controlador {
     
     
     
+    }
+    
+    public void addRegistro(String diagnostico, Cita cita){
+    
+        this.persistencia.iniciarTransaccion();
+        try{
+            HistoriaClinica hc = cita.getElpaciente().getHistoriaC();            
+            hc.nuevoRegistro(diagnostico, cita.getMedic());            
+            this.persistencia.modificar(hc);
+            System.out.println("Se inserto Registro");
+            this.persistencia.confirmarTransaccion();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            System.err.println("No se pudo Cargar el Medico");
+            this.persistencia.descartarTransaccion();
+        }
     }
     
     public void addEspecialidadMedico(int dni, Especialidad esp)
@@ -329,32 +346,12 @@ public class Controlador {
                                                     //tomar simplemente el valor de fin viejo
                                                     algebraHora.setMinutes(algebraHora.getMinutes()+m1.getTiempoTurno());
                                                     auxHoraDiaInicio = (algebraHora.getHours() * 100 )+(algebraHora.getMinutes());
-                                                        
-                                                
                                                 }
-                                                      
-                                                
-                                            
                                             }
-                                            
-                                            
-                                            
-                                            
-                                     
                                      }
-                                    
-                            
-                            } 
-                 
+                            }
                  }
-             
-             
-             
              }
-             
-             
-            
-            
     }
 
     

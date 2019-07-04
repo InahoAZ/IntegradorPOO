@@ -1,6 +1,7 @@
 
 package modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,9 +34,11 @@ public class Registro {
     public Registro() {
     }
 
-    public Registro(String disgnostico) {
+    public Registro(String disgnostico, Medico medico, HistoriaClinica hc) {
         this.fecha = new Date();
         this.disgnostico = disgnostico;
+        this.elmedico = medico;
+        this.hc = hc;
     }
     
     //Metodos
@@ -47,10 +50,24 @@ public class Registro {
     public Date getFecha() {
         return fecha;
     }
+    
+    public String getFechaLinda(){
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+        return dt1.format(this.fecha);
+    }
 
     public String getDisgnostico() {
         return disgnostico;
     }
+
+    @Override
+    public String toString() {
+        
+        
+        return "" + "" + cod + "  " + getFechaLinda() + "  " + elmedico + "";
+    }
+    
+    
         
         
     
