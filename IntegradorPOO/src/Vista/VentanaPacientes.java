@@ -6,12 +6,16 @@
 package Vista;
 
 import Controlador.Controlador;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import modelo.Cita;
 import modelo.Especialidad;
+import modelo.Medico;
 import modelo.Paciente;
 
 /**
@@ -83,7 +87,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
+        listaCitas = new javax.swing.JList();
         jButton5 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
 
@@ -316,6 +320,11 @@ public class VentanaPacientes extends javax.swing.JFrame {
 
         jLabel5.setText("Seleccion de medico segun especialidad");
 
+        listamedicespecial.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listamedicespecialValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(listamedicespecial);
 
         jLabel18.setText("Especialidad:");
@@ -362,7 +371,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
 
         jLabel20.setText("Citas displonibles:");
 
-        jScrollPane3.setViewportView(jList3);
+        jScrollPane3.setViewportView(listaCitas);
 
         jButton5.setText("Asignar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -528,7 +537,14 @@ public class VentanaPacientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        // boton asignar
+        
+        //si tiene cita seleccionada
+        if(!this.listaCitas.isSelectionEmpty()){
+                    
+                    Paciente pac = (Paciente) this.listaPacientes.getSelectedValue();
+                    c.asignarCita(pac, (Cita) this.listaCitas.getSelectedValue());
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -580,6 +596,10 @@ public class VentanaPacientes extends javax.swing.JFrame {
                         Especialidad espe = (Especialidad) combobo.getSelectedItem();
                         
                        this.listamedicespecial.setListData(espe.getMedicos().toArray());
+                       
+                       
+                       
+                       
                 
                 }
                
@@ -650,6 +670,22 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private void comboboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboboActionPerformed
+
+    private void listamedicespecialValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listamedicespecialValueChanged
+        // cuando se selecciona un medico segun especialidad
+        try{
+                    Medico m1 = (Medico) this.listamedicespecial.getSelectedValue();
+                    this.listaCitas.setListData(m1.getCitas().toArray());
+        }
+        catch(Exception e){
+                    List vacio = new ArrayList<>();
+                    this.listaCitas.setListData(vacio.toArray());
+                    System.out.println("seleccione un medico");
+        
+        }
+        
+        
+    }//GEN-LAST:event_listamedicespecialValueChanged
      
    
    
@@ -690,7 +726,6 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -706,6 +741,7 @@ public class VentanaPacientes extends javax.swing.JFrame {
     private javax.swing.JLabel labelfecha;
     private javax.swing.JLabel labelnombre;
     private javax.swing.JLabel labeltelefono;
+    private javax.swing.JList listaCitas;
     private javax.swing.JList listaPacientes;
     private javax.swing.JList listamedicespecial;
     // End of variables declaration//GEN-END:variables

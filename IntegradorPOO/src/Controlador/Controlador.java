@@ -493,6 +493,34 @@ public class Controlador {
    
     }
 
+    public void asignarCita(Paciente pac, Cita cita) {
+       
+                
+        this.persistencia.iniciarTransaccion();
+        try {
+            
+             
+             
+            
+             
+             cita.setElpaciente(pac);
+             pac.setMiCita(cita);
+            
+            
+             
+             
+            this.persistencia.modificar(cita);
+            this.persistencia.modificar(pac);
+            
+            this.persistencia.confirmarTransaccion();
+        } catch (Exception e) {
+            this.persistencia.descartarTransaccion();
+            System.err.println("No se pudo asignar la cita");
+        }
+        
+        
+    }
+
     
 
         
