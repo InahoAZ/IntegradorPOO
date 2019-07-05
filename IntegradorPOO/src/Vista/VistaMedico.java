@@ -415,15 +415,25 @@ public class VistaMedico extends javax.swing.JFrame {
 
     private void lstMedicosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMedicosValueChanged
         // Cuando se selecciona un medico de la lista muestra sus datos y da pie a modificaciones
-        Medico auxMed = (Medico)this.lstMedicos.getSelectedValue();
-        List<Cita> citas = auxMed.getCitas();
-        this.lstCitas.setListData(citas.toArray());
-        this.txtApellido.setText(auxMed.getApellido());
-        this.txtNombre.setText(auxMed.getNombre());
-        this.txtTelefono.setText(Integer.toString(auxMed.getTelefono()));
-        this.txtMatricula.setText(Long.toString(auxMed.getMatricula()));
-        this.txtTiempoTurno.setText(Integer.toString(auxMed.getTiempoTurno()));
-        this.lstEspecialidades.setListData(auxMed.getEspecialidades().toArray());
+        try{
+        if(!this.lstMedicos.isSelectionEmpty()){
+                Medico auxMed = (Medico)this.lstMedicos.getSelectedValue();
+                List<Cita> citas = auxMed.getCitas();
+
+                this.lstCitas.setListData(controlador.medicoCitas((Medico) lstMedicos.getSelectedValue()).toArray());
+
+                this.txtApellido.setText(auxMed.getApellido());
+                this.txtNombre.setText(auxMed.getNombre());
+                this.txtTelefono.setText(Integer.toString(auxMed.getTelefono()));
+                this.txtMatricula.setText(Long.toString(auxMed.getMatricula()));
+                this.txtTiempoTurno.setText(Integer.toString(auxMed.getTiempoTurno()));
+                this.lstEspecialidades.setListData(auxMed.getEspecialidades().toArray());
+        }
+        }catch(Exception e){
+                System.out.println("seleccion invalida de medico");
+        
+        
+        }
     }//GEN-LAST:event_lstMedicosValueChanged
 
     public JList getLstMedicos() {

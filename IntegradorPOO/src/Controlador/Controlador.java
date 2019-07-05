@@ -696,4 +696,22 @@ public class Controlador {
             cita.setAsistido(true);
             auxPaciente.setMiCita(null);
     }
+
+    public List medicoCitas(Medico mm) {
+        
+        
+        List citasM = mm.getCitas();
+        List citasReco = new ArrayList<>();
+        for (int i = 0; i < citasM.size(); i++) {
+            Cita ccc = (Cita) citasM.get(i);
+            if(ccc.getElpaciente() != null){
+                    citasReco.add(ccc);
+            
+            }
+            
+        }
+        
+        return citasReco;
+        
+    }
 }
